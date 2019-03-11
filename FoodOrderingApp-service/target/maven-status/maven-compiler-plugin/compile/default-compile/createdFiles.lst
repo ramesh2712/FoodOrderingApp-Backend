@@ -1,6 +1,8 @@
+com\upgrad\FoodOrderingApp\service\businness\AuthenticationService.class
 com\upgrad\FoodOrderingApp\service\exception\CouponNotFoundException.class
 com\upgrad\FoodOrderingApp\service\exception\CustomerNotFoundException.class
 com\upgrad\FoodOrderingApp\service\exception\ItemNotFoundException.class
+com\upgrad\FoodOrderingApp\service\entity\CustomerAuthTokenEntity.class
 com\upgrad\FoodOrderingApp\service\exception\AuthenticationFailedException.class
 com\upgrad\FoodOrderingApp\service\businness\JwtTokenProvider.class
 com\upgrad\FoodOrderingApp\service\dao\CustomerDao.class
