@@ -48,6 +48,7 @@ public class AuthenticationService {
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public String[] authenticate (final String authorization) throws AuthenticationFailedException {
         String[] decodedArray;
         byte[] decode;
@@ -64,21 +65,37 @@ public class AuthenticationService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public CustomerAuthTokenEntity tokenAuthenticate(final String authorization) throws AuthorizationFailedException {
-        CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(authorization);
+    public CustomerAuthTokenEntity tokenAuthenticate(final String authToken) throws AuthorizationFailedException {
+       // CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(authToken);
         ZonedDateTime now = ZonedDateTime.now();
-        if(customerAuthToken == null){
+      /*  if(customerAuthToken == null){
             throw new AuthorizationFailedException("ATHR-001","Customer is not Logged in.");
         }else if(customerAuthToken.getLogoutAt() != null){
             throw new AuthorizationFailedException("ATHR-001","Customer is not Logged in.");
 
         }else if(now.isAfter(customerAuthToken.getExpiresAt())){
             throw new AuthorizationFailedException("ATHR-003","(Your session is expired. Log in again to access this endpoint.");
-        }else{
+        }else{*/
 
-            customerAuthToken.setLoginAt(now);
-           CustomerAuthTokenEntity updateToken =  customerDao.updateAuthToken(customerAuthToken);
-           return updateToken;
+        CustomerAuthTokenEntity customerAuthToken = authCustomerToken(authToken);
+            customerAuthToken.setLogoutAt(now);
+            CustomerAuthTokenEntity updateToken = customerDao.updateAuthToken(customerAuthToken);
+            return updateToken;
+
+    }
+
+    public CustomerAuthTokenEntity authCustomerToken(final String authorization) throws AuthorizationFailedException {
+        CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(authorization);
+        ZonedDateTime now = ZonedDateTime.now();
+        if(customerAuthToken == null){
+            throw new AuthorizationFailedException("ATHR-001","Customer is not Logged in.");
+        }else if(customerAuthToken.getLogoutAt() != null){
+            throw new AuthorizationFailedException("ATHR-0021","Customer is logged out. Log in again to access this endpoint.");
+
+        }else if(now.isAfter(customerAuthToken.getExpiresAt())){
+            throw new AuthorizationFailedException("ATHR-003","(Your session is expired. Log in again to access this endpoint.");
+        }else{
+            return customerAuthToken;
         }
     }
 }
