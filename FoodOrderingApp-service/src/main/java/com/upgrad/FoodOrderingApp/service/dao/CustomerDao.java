@@ -29,9 +29,9 @@ public class CustomerDao {
         }
     }
 
-    public CustomerEntity getUserByEmail(final String email){
+    public CustomerEntity getUserByContact(final String contactNumber){
         try{
-            return entityManager.createNamedQuery("userByEmail",CustomerEntity.class).setParameter("email",email)
+            return entityManager.createNamedQuery("userByContact",CustomerEntity.class).setParameter("ContactNumber",contactNumber)
                     .getSingleResult();
         }catch(NoResultException nre){
             return null;

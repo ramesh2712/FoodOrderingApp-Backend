@@ -42,7 +42,7 @@ public class CustomerController {
         customerEntity.setContactNumber(signupCustomerRequest.getContactNumber());
         customerEntity.setEmail(signupCustomerRequest.getEmailAddress());
         customerEntity.setPassword(signupCustomerRequest.getPassword());
-        customerEntity.setSalt("123abc");
+
         final CustomerEntity createdCustomerEntity= signupBusinessService.signUp(customerEntity);
        SignupCustomerResponse signupCustomerResponse= new SignupCustomerResponse().id(createdCustomerEntity.getUuid()).status("CUSTOMER SUCCESSFULLY REGISTERED");
         return new ResponseEntity<SignupCustomerResponse>(signupCustomerResponse, HttpStatus.CREATED);
@@ -50,13 +50,13 @@ public class CustomerController {
 
     @RequestMapping(method=RequestMethod.POST, path="/customer/login", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<LoginResponse> login (@RequestHeader("authorization") final String authorization) throws AuthenticationFailedException {
-        String[] decodedArray= authenticationService.authnticate(authorization);
+        String[] decodedArray= authenticationService.authenticate(authorization);
         // byte[] decode =  Base64.getDecoder().decode(authorization.split("Basic ")[1]);
         //  String decodedText = new String(decode);
        //   String[] decodedArray = decodedText.split(":");
 
        // authenticationService.authFormat(authorization);
-       CustomerAuthTokenEntity customerAuthToken = authenticationService.authnticateCustomer(decodedArray[0],decodedArray[1]);
+       CustomerAuthTokenEntity customerAuthToken = authenticationService.authenticateCustomer(decodedArray[0],decodedArray[1]);
        CustomerEntity customerEntity = customerAuthToken.getCustomer();
        LoginResponse loginResponse = new LoginResponse().id(customerAuthToken.getUuid()).message("LOGGED IN SUCCESSFULLY").firstName(customerEntity.getFirstname()).lastName(customerEntity.getLastname())
             .contactNumber(customerEntity.getContactNumber()).emailAddress(customerEntity.getEmail());

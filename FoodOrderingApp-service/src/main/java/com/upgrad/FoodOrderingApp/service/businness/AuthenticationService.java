@@ -23,12 +23,12 @@ public class AuthenticationService {
     private PasswordCryptographyProvider cryptographyProvider;
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public CustomerAuthTokenEntity authnticateCustomer (final String username, final String password) throws AuthenticationFailedException {
-        CustomerEntity customerEntity=  customerDao.getUserByEmail(username);
+    public CustomerAuthTokenEntity authenticateCustomer (final String username, final String password) throws AuthenticationFailedException {
+        CustomerEntity customerEntity=  customerDao.getUserByContact(username);
         if(customerEntity == null){
             throw new AuthenticationFailedException("ATH-001","This contact number has not been registered!");
         }
-        final  String encryptedPassword =cryptographyProvider.encrypt(password,customerEntity.getSalt());
+        final  String encryptedPassword = cryptographyProvider.encrypt(password,customerEntity.getSalt());
         if(encryptedPassword.equals(customerEntity.getPassword())){
             JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(encryptedPassword);
             CustomerAuthTokenEntity customerAuthToken = new CustomerAuthTokenEntity();
@@ -43,20 +43,22 @@ public class AuthenticationService {
             return customerAuthToken;
 
         }else{
-            throw new AuthenticationFailedException("ATH-002","Password Failed");
+            throw new AuthenticationFailedException("ATH-002","Invalid Credentials");
         }
     }
 
-    public String[] authnticate (final String authorization) throws AuthenticationFailedException {
+    public String[] authenticate (final String authorization) throws AuthenticationFailedException {
         String[] decodedArray;
         byte[] decode;
-        if(!authorization.contains("Basic ")){
-            throw new AuthenticationFailedException("ATH-003","Incorrect format of decoded customer name and password");
-        }else{
+        try{
             decode =  Base64.getDecoder().decode(authorization.split("Basic ")[1]);
             String decodedText = new String(decode);
             decodedArray = decodedText.split(":");
             return decodedArray;
+
+        }catch(Exception e){
+            throw new AuthenticationFailedException("ATH-003","Incorrect format of decoded customer name and password");
+
         }
     }
 }
