@@ -4,6 +4,7 @@ import com.upgrad.FoodOrderingApp.service.dao.CustomerDao;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerAuthTokenEntity;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
 import com.upgrad.FoodOrderingApp.service.exception.AuthenticationFailedException;
+import com.upgrad.FoodOrderingApp.service.exception.AuthorizationFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -59,6 +60,25 @@ public class AuthenticationService {
         }catch(Exception e){
             throw new AuthenticationFailedException("ATH-003","Incorrect format of decoded customer name and password");
 
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CustomerAuthTokenEntity tokenAuthenticate(final String authorization) throws AuthorizationFailedException {
+        CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(authorization);
+        ZonedDateTime now = ZonedDateTime.now();
+        if(customerAuthToken == null){
+            throw new AuthorizationFailedException("ATHR-001","Customer is not Logged in.");
+        }else if(customerAuthToken.getLogoutAt() != null){
+            throw new AuthorizationFailedException("ATHR-001","Customer is not Logged in.");
+
+        }else if(now.isAfter(customerAuthToken.getExpiresAt())){
+            throw new AuthorizationFailedException("ATHR-003","(Your session is expired. Log in again to access this endpoint.");
+        }else{
+
+            customerAuthToken.setLoginAt(now);
+           CustomerAuthTokenEntity updateToken =  customerDao.updateAuthToken(customerAuthToken);
+           return updateToken;
         }
     }
 }
