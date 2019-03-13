@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Set;
 
 
 @Entity
@@ -56,10 +57,13 @@ public class CustomerEntity implements Serializable {
     @NotNull
     private String salt;
 
-    @Override
-    public boolean equals(Object obj) {
-        return new EqualsBuilder().append(this, obj).isEquals();
-    }
+    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @JoinTable(name = "CUSTOMER_ADDRESS",
+                joinColumns = {@JoinColumn(name = "CUSTOMER_ID")},
+                inverseJoinColumns = {@JoinColumn(name = "ADDRESS_ID")})
+    private Set<AddressEntity> address;
+
+
 
     public Integer getId() {
         return id;
@@ -123,6 +127,19 @@ public class CustomerEntity implements Serializable {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public Set<AddressEntity> getAddress() {
+        return address;
+    }
+
+    public void setAddress(Set<AddressEntity> address) {
+        this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return new EqualsBuilder().append(this, obj).isEquals();
     }
 
     @Override
