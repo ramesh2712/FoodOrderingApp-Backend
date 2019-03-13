@@ -38,6 +38,7 @@ com\upgrad\FoodOrderingApp\api\model\SaveOrderRequest.class
 com\upgrad\FoodOrderingApp\api\model\OrderListAddress.class
 com\upgrad\FoodOrderingApp\api\model\UpdatePasswordRequest.class
 com\upgrad\FoodOrderingApp\api\model\ItemQuantity.class
+com\upgrad\FoodOrderingApp\api\controller\AddressController.class
 com\upgrad\FoodOrderingApp\api\model\OrderListAddressState.class
 com\upgrad\FoodOrderingApp\api\model\CouponDetailsResponse.class
 com\upgrad\FoodOrderingApp\api\model\ItemQuantityResponseItem.class

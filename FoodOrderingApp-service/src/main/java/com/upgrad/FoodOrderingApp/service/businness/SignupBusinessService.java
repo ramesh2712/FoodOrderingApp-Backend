@@ -29,7 +29,7 @@ public class SignupBusinessService {
            throw new SignUpRestrictedException("SGR-005","Except last name all fields should be filled");
        } else if(!(customerEntity.getEmail().matches("\\w+?@\\w+?\\x2E.+"))) {
             throw new SignUpRestrictedException("SGR-002","Invalid email-id format!");
-       } else if (!customerEntity.getContactNumber().matches("[0-9]+") || customerEntity.getContactNumber().length()!= 10){
+       } else if (!customerEntity.getContactNumber().matches("[0-9]+") && customerEntity.getContactNumber().length()!= 10){
             throw new SignUpRestrictedException("SGR-003","Invalid contact number!");
        }else if(!customerEntity.getPassword().matches("^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*\\d).+$")){
             throw new SignUpRestrictedException("SGR-004","Weak password!");
