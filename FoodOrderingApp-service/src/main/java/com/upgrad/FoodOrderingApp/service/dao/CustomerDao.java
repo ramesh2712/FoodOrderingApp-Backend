@@ -14,13 +14,13 @@ public class CustomerDao {
 
     @PersistenceContext
     private EntityManager entityManager;
-    public CustomerEntity createCustomer (CustomerEntity customerEntity){
+    public CustomerEntity createCustomer (final CustomerEntity customerEntity){
         entityManager.persist(customerEntity);
         return customerEntity;
 
     }
 
-    public CustomerEntity contactCheck (CustomerEntity customerEntity){
+    public CustomerEntity contactCheck (final CustomerEntity customerEntity){
         try{
             return entityManager.createNamedQuery("contactNumber", CustomerEntity.class).setParameter("number",customerEntity.getContactNumber())
                     .getSingleResult();
@@ -42,4 +42,30 @@ public class CustomerDao {
         entityManager.persist(customerAuthTokenEntity);
         return customerAuthTokenEntity;
     }
+
+    public CustomerAuthTokenEntity getAuthToken (final String authorization){
+       try{
+           return entityManager.createNamedQuery("userByToken",CustomerAuthTokenEntity.class).setParameter("accessToken",authorization)
+                   .getSingleResult();
+       }catch(NoResultException nre){
+           return null;
+       }
+
+
+    }
+
+    public CustomerAuthTokenEntity updateAuthToken (final CustomerAuthTokenEntity customerAuthToken){
+           entityManager.merge(customerAuthToken);
+           return customerAuthToken;
+    }
+
+    public  CustomerEntity updateCustomerDetails (final CustomerEntity customerEntity){
+         return entityManager.merge(customerEntity);
+
+    }
+
+    public CustomerEntity updateCustomerPassword (final CustomerEntity customer){
+        return entityManager.merge(customer);
+    }
+
 }
