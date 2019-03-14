@@ -10,12 +10,18 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "address")
-
-
+@NamedQueries(
+        {
+                @NamedQuery(name = "getAddress2", query = "select a from AddressEntity a join a.customerAddress ca join ca.customer c join c.customerAuth au  where  au.accessToken=:accessToken"),
+                @NamedQuery(name = "getAddressUuid", query = "select a from AddressEntity a where a.uuid=:uuid")
+        }
+)
 public class AddressEntity {
 
     @Id
@@ -39,6 +45,9 @@ public class AddressEntity {
     @Column (name = "PINCODE")
     private String pinCode;
 
+    @Column(name = "ACTIVE")
+    private Integer active;
+
     @ManyToOne
     @JoinColumn(name = "STATE_ID")
     @OnDelete(action=OnDeleteAction.CASCADE)
@@ -46,8 +55,11 @@ public class AddressEntity {
 
 
 
-    @ManyToMany(mappedBy = "address")
-    private Set<CustomerEntity> customer;
+  /*  @ManyToMany(mappedBy = "address",fetch = FetchType.EAGER)
+    private List<CustomerEntity> customer = new ArrayList<CustomerEntity>();*/
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+    private List<CustomerAddressEntity> customerAddress = new ArrayList<>();
 
 
     public Integer getId() {
@@ -106,12 +118,20 @@ public class AddressEntity {
         this.state = state;
     }
 
-    public Set<CustomerEntity> getCustomer() {
-        return customer;
+    public Integer getActive() {
+        return active;
     }
 
-    public void setCustomer(Set<CustomerEntity> customer) {
-        this.customer = customer;
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    public List<CustomerAddressEntity> getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(List<CustomerAddressEntity> customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
     @Override

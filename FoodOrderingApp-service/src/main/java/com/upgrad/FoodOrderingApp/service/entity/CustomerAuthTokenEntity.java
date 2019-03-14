@@ -17,6 +17,7 @@ import java.time.ZonedDateTime;
 @NamedQueries(
         {
                 @NamedQuery (name = "userByToken" , query = "select u from CustomerAuthTokenEntity u where u.accessToken =:accessToken" )
+
         }
 )
 public class CustomerAuthTokenEntity {
@@ -33,7 +34,7 @@ public class CustomerAuthTokenEntity {
    @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
     @OnDelete(action=OnDeleteAction.CASCADE)
-    private CustomerEntity customer;
+    private CustomerEntity customers;
 
     @Column(name = "ACCESS_TOKEN")
     private String accessToken;
@@ -63,12 +64,12 @@ public class CustomerAuthTokenEntity {
         this.uuid = uuid;
     }
 
-    public CustomerEntity getCustomer() {
-        return customer;
+    public CustomerEntity getCustomers() {
+        return customers;
     }
 
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
+    public void setCustomers(CustomerEntity customers) {
+        this.customers = customers;
     }
 
     public String getAccessToken() {

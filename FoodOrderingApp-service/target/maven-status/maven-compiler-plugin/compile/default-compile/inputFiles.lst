@@ -13,6 +13,7 @@ D:\FoodOrderingApp-Backend-Rest_API_Endpoints-I\FoodOrderingApp-service\src\main
 D:\FoodOrderingApp-Backend-Rest_API_Endpoints-I\FoodOrderingApp-service\src\main\java\com\upgrad\FoodOrderingApp\service\entity\CustomerAuthTokenEntity.java
 D:\FoodOrderingApp-Backend-Rest_API_Endpoints-I\FoodOrderingApp-service\src\main\java\com\upgrad\FoodOrderingApp\service\exception\CategoryNotFoundException.java
 D:\FoodOrderingApp-Backend-Rest_API_Endpoints-I\FoodOrderingApp-service\src\main\java\com\upgrad\FoodOrderingApp\service\exception\PaymentMethodNotFoundException.java
+D:\FoodOrderingApp-Backend-Rest_API_Endpoints-I\FoodOrderingApp-service\src\main\java\com\upgrad\FoodOrderingApp\service\entity\CustomerAddressEntity.java
 D:\FoodOrderingApp-Backend-Rest_API_Endpoints-I\FoodOrderingApp-service\src\main\java\com\upgrad\FoodOrderingApp\service\exception\CouponNotFoundException.java
 D:\FoodOrderingApp-Backend-Rest_API_Endpoints-I\FoodOrderingApp-service\src\main\java\com\upgrad\FoodOrderingApp\service\exception\RestaurantNotFoundException.java
 D:\FoodOrderingApp-Backend-Rest_API_Endpoints-I\FoodOrderingApp-service\src\main\java\com\upgrad\FoodOrderingApp\service\exception\SignUpRestrictedException.java
