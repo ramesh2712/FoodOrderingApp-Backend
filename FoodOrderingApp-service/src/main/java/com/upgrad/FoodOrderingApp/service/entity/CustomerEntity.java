@@ -10,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -18,7 +20,10 @@ import java.util.Set;
 @NamedQueries(
         {
                 @NamedQuery(name = "contactNumber", query = "select u from CustomerEntity u where u.ContactNumber =:number"),
-                @NamedQuery(name = "userByContact", query = "select u from CustomerEntity u where u.ContactNumber =:ContactNumber")
+                @NamedQuery(name = "userByContact", query = "select u from CustomerEntity u where u.ContactNumber =:ContactNumber"),
+
+
+
         }
 )
 public class CustomerEntity implements Serializable {
@@ -57,13 +62,17 @@ public class CustomerEntity implements Serializable {
     @NotNull
     private String salt;
 
-    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-    @JoinTable(name = "CUSTOMER_ADDRESS",
-                joinColumns = {@JoinColumn(name = "CUSTOMER_ID")},
-                inverseJoinColumns = {@JoinColumn(name = "ADDRESS_ID")})
-    private Set<AddressEntity> address;
+   /* @ManyToMany(cascade = CascadeType.ALL,fetch =   FetchType.LAZY)
+    @JoinTable(name = "customer_address",
+                joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
+                inverseJoinColumns = @JoinColumn(name = "address_id", referencedColumnName = "id"))
+    private List<AddressEntity> address = new ArrayList<AddressEntity>();*/
 
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+   private List<CustomerAddressEntity> customerAddress;
 
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customers")
+    private List<CustomerAuthTokenEntity> customerAuth = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -129,12 +138,20 @@ public class CustomerEntity implements Serializable {
         this.salt = salt;
     }
 
-    public Set<AddressEntity> getAddress() {
-        return address;
+    public List<CustomerAddressEntity> getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setAddress(Set<AddressEntity> address) {
-        this.address = address;
+    public void setCustomerAddress(List<CustomerAddressEntity> customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public List<CustomerAuthTokenEntity> getCustomerAuth() {
+        return customerAuth;
+    }
+
+    public void setCustomerAuth(List<CustomerAuthTokenEntity> customerAuth) {
+        this.customerAuth = customerAuth;
     }
 
     @Override

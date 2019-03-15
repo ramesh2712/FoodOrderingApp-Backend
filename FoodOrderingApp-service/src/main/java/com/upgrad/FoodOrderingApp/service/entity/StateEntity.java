@@ -15,7 +15,8 @@ import java.util.Set;
 
 @NamedQueries(
         {
-                @NamedQuery(name = "stateByUuid" , query = "select u from StateEntity u where u.uuid =:stateUuid")
+                @NamedQuery(name = "stateByUuid" , query = "select u from StateEntity u where u.uuid =:stateUuid"),
+                @NamedQuery(name = "getStates" , query = "select s from StateEntity s")
         }
 )
 public class StateEntity {

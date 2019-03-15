@@ -28,7 +28,7 @@ public class UpdateCustomerService {
         }
         else{
 
-            CustomerEntity customer = customerAuthToken.getCustomer();
+            CustomerEntity customer = customerAuthToken.getCustomers();
             customer.setFirstname(firstName);
             customer.setLastname(lastName);
             return customerDao.updateCustomerDetails(customer);

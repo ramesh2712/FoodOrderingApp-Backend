@@ -33,7 +33,7 @@ public class AuthenticationService {
         if(encryptedPassword.equals(customerEntity.getPassword())){
             JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(encryptedPassword);
             CustomerAuthTokenEntity customerAuthToken = new CustomerAuthTokenEntity();
-            customerAuthToken.setCustomer(customerEntity);
+            customerAuthToken.setCustomers(customerEntity);
             final  ZonedDateTime now = ZonedDateTime.now();
             final ZonedDateTime expiresAt = now.plusHours(8);
             customerAuthToken.setUuid(UUID.randomUUID().toString());

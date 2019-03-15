@@ -12,13 +12,12 @@ import com.upgrad.FoodOrderingApp.service.exception.SignUpRestrictedException;
 import com.upgrad.FoodOrderingApp.service.exception.UpdateCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.Media;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -56,20 +55,22 @@ public class CustomerController {
         String[] decodedArray= authenticationService.authenticate(authorization);
 
        CustomerAuthTokenEntity customerAuthToken = authenticationService.authenticateCustomer(decodedArray[0],decodedArray[1]);
-       CustomerEntity customerEntity = customerAuthToken.getCustomer();
+       CustomerEntity customerEntity = customerAuthToken.getCustomers();
        LoginResponse loginResponse = new LoginResponse().id(customerAuthToken.getUuid()).message("LOGGED IN SUCCESSFULLY").firstName(customerEntity.getFirstname()).lastName(customerEntity.getLastname())
             .contactNumber(customerEntity.getContactNumber()).emailAddress(customerEntity.getEmail());
 
-        HttpHeaders header = new HttpHeaders();
-        header.add("access-token",customerAuthToken.getAccessToken());
-        return new ResponseEntity<LoginResponse>(loginResponse,header,HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        List<String> header = new ArrayList<>();
+        header.add(customerAuthToken.getAccessToken());
+        headers.setAccessControlExposeHeaders(header);
+        return new ResponseEntity<LoginResponse>(loginResponse,headers,HttpStatus.OK);
 
     }
 
     @RequestMapping(method = RequestMethod.POST , path = "/customer/logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<LogoutResponse> logout (@RequestHeader("authorization") final String authorization) throws AuthorizationFailedException {
+    public ResponseEntity<LogoutResponse> logout (final String authorization) throws AuthorizationFailedException {
        CustomerAuthTokenEntity customerAuthToken = authenticationService.tokenAuthenticate(authorization);
-       CustomerEntity customer = customerAuthToken.getCustomer();
+       CustomerEntity customer = customerAuthToken.getCustomers();
        LogoutResponse logoutResponse = new LogoutResponse().id(customer.getUuid()).message("LOGGED OUT SUCCESSFULLY");
        return new ResponseEntity<LogoutResponse>(logoutResponse, HttpStatus.OK);
 
@@ -95,7 +96,7 @@ public class CustomerController {
        CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(authToken);
         final String oldPassword = updatePasswordRequest.getOldPassword();
         final String newPassword = updatePasswordRequest.getNewPassword();
-        CustomerEntity customerUpdatedPassword = updateCustomerService.updatePassword(oldPassword,newPassword,customerAuthToken.getCustomer());
+        CustomerEntity customerUpdatedPassword = updateCustomerService.updatePassword(oldPassword,newPassword,customerAuthToken.getCustomers());
         UpdatePasswordResponse updatePasswordResponse = new UpdatePasswordResponse().id(customerUpdatedPassword.getUuid())
                 .status("CUSTOMER PASSWORD UPDATED SUCCESSFULLY");
         return new ResponseEntity<UpdatePasswordResponse>(updatePasswordResponse, HttpStatus.OK);
