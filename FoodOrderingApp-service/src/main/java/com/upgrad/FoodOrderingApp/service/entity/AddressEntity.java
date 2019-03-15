@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "address")
 @NamedQueries(
         {
-                @NamedQuery(name = "getAddress2", query = "select a from AddressEntity a join a.customerAddress ca join ca.customer c join c.customerAuth au  where  au.accessToken=:accessToken"),
+                @NamedQuery(name = "getAddress2", query = "select a from AddressEntity a inner join a.customerAddress ca on a.id = ca.address_id inner join ca.customer c on c.id = ca.customer_id inner join c.customerAuth au on au.customer_id = c.id where au.accessToken=:accessToken"),
                 @NamedQuery(name = "getAddressUuid", query = "select a from AddressEntity a where a.uuid=:uuid")
         }
 )

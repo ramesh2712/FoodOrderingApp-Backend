@@ -18,6 +18,7 @@ import java.time.ZonedDateTime;
         {
                 @NamedQuery (name = "userByToken" , query = "select u from CustomerAuthTokenEntity u where u.accessToken =:accessToken" )
 
+
         }
 )
 public class CustomerAuthTokenEntity {
