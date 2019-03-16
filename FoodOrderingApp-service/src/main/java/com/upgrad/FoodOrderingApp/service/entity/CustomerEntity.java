@@ -22,8 +22,6 @@ import java.util.Set;
                 @NamedQuery(name = "contactNumber", query = "select u from CustomerEntity u where u.ContactNumber =:number"),
                 @NamedQuery(name = "userByContact", query = "select u from CustomerEntity u where u.ContactNumber =:ContactNumber"),
 
-
-
         }
 )
 public class CustomerEntity implements Serializable {

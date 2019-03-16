@@ -33,8 +33,9 @@ public class CustomerController {
     private UpdateCustomerService updateCustomerService;
 
 
+    // signup Endpoint ...
 
-    @RequestMapping(method = RequestMethod.POST,path = "/signup", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.POST,path = "/customer/signup", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<SignupCustomerResponse> signup (final SignupCustomerRequest signupCustomerRequest) throws SignUpRestrictedException {
 
         final CustomerEntity customerEntity =new CustomerEntity();
@@ -46,7 +47,7 @@ public class CustomerController {
         customerEntity.setPassword(signupCustomerRequest.getPassword());
 
         final CustomerEntity createdCustomerEntity= signupBusinessService.signUp(customerEntity);
-       SignupCustomerResponse signupCustomerResponse= new SignupCustomerResponse().id(createdCustomerEntity.getUuid()).status("CUSTOMER SUCCESSFULLY REGISTERED");
+        SignupCustomerResponse signupCustomerResponse= new SignupCustomerResponse().id(createdCustomerEntity.getUuid()).status("CUSTOMER SUCCESSFULLY REGISTERED");
         return new ResponseEntity<SignupCustomerResponse>(signupCustomerResponse, HttpStatus.CREATED);
     }
 

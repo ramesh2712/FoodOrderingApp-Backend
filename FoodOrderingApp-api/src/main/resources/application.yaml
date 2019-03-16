@@ -12,7 +12,7 @@ spring:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5433/restaurantdb
     username: postgres
-    password: postgres
+    password: Swaminarayan1
 
   jpa:
     properties:

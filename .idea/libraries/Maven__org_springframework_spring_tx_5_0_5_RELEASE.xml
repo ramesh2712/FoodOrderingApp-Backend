@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework:spring-tx:5.0.5.RELEASE">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springFramework/spring-tx/5.0.5.RELEASE/spring-tx-5.0.5.RELEASE.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.0.5.RELEASE/spring-tx-5.0.5.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.0.5.RELEASE/spring-tx-5.0.5.RELEASE-javadoc.jar!/" />
