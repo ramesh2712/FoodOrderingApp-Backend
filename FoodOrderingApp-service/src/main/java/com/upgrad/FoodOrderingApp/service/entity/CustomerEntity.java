@@ -54,7 +54,7 @@ public class CustomerEntity implements Serializable {
 
     @Column(name = "PASSWORD")
     @NotNull
-   private String password;
+    private String password;
 
     @Column(name = "SALT")
     @NotNull

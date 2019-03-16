@@ -3,12 +3,14 @@ package com.upgrad.FoodOrderingApp.service.businness;
 import com.upgrad.FoodOrderingApp.service.dao.CustomerDao;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerAuthTokenEntity;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
+import com.upgrad.FoodOrderingApp.service.exception.AuthorizationFailedException;
 import com.upgrad.FoodOrderingApp.service.exception.UpdateCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
 
 
 @Service
@@ -20,20 +22,19 @@ public class UpdateCustomerService {
     private PasswordCryptographyProvider cryptographyProvider;
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public CustomerEntity updateCustomer (final String firstName,final String lastName,final CustomerAuthTokenEntity customerAuthToken) throws UpdateCustomerException {
+    public CustomerEntity updateCustomer(final String firstName,final String lastName,final CustomerEntity customerEntity) throws UpdateCustomerException {
 
         if(firstName.length() == 0) {
             throw new UpdateCustomerException("UCR-002","First name field should not be empty");
         } else {
-            CustomerEntity customer = customerAuthToken.getCustomers();
-            customer.setFirstname(firstName);
-            customer.setLastname(lastName);
-            return customerDao.updateCustomerDetails(customer);
+            customerEntity.setFirstname(firstName);
+            customerEntity.setLastname(lastName);
+            return customerDao.updateCustomerDetails(customerEntity);
         }
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public CustomerEntity updatePassword (final String oldPassword, final String newPassword, final CustomerEntity customer) throws UpdateCustomerException {
+    public CustomerEntity updateCustomerPassword(final String oldPassword, final String newPassword, final CustomerEntity customer) throws UpdateCustomerException {
         // Check for different password validations .....
         if(oldPassword.length() == 0 || newPassword.length() == 0) {
             throw new UpdateCustomerException("UCR-003","No field should be empty");
@@ -52,4 +53,17 @@ public class UpdateCustomerService {
         }
     }
 
+    public CustomerEntity getCustomer(final String accessToken) throws AuthorizationFailedException {
+        CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(accessToken);
+        ZonedDateTime now = ZonedDateTime.now();
+        if(customerAuthToken == null) {
+            throw new AuthorizationFailedException("ATHR-001","Customer is not Logged in.");
+        } else if(customerAuthToken.getLogoutAt() != null) {
+            throw new AuthorizationFailedException("ATHR-002","Customer is logged out. Log in again to access this endpoint.");
+        } else if(now.isAfter(customerAuthToken.getExpiresAt())) {
+            throw new AuthorizationFailedException("ATHR-003","(Your session is expired. Log in again to access this endpoint.");
+        } else {
+            return customerAuthToken.getCustomers();
+        }
+    }
 }

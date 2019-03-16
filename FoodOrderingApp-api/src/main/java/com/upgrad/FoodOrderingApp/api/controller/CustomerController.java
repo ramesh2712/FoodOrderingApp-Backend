@@ -46,7 +46,7 @@ public class CustomerController {
         customerEntity.setEmail(signupCustomerRequest.getEmailAddress());
         customerEntity.setPassword(signupCustomerRequest.getPassword());
 
-        final CustomerEntity createdCustomerEntity= signupBusinessService.signUp(customerEntity);
+        final CustomerEntity createdCustomerEntity= signupBusinessService.saveCustomer(customerEntity);
         SignupCustomerResponse signupCustomerResponse= new SignupCustomerResponse().id(createdCustomerEntity.getUuid()).status("CUSTOMER SUCCESSFULLY REGISTERED");
         return new ResponseEntity<SignupCustomerResponse>(signupCustomerResponse, HttpStatus.CREATED);
     }
@@ -85,7 +85,7 @@ public class CustomerController {
     @RequestMapping(method = RequestMethod.POST , path = "/customer/logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<LogoutResponse> logout(@RequestHeader("authorization") final String authorization) throws AuthorizationFailedException {
 
-       CustomerAuthTokenEntity customerAuthToken = authenticationService.tokenAuthenticate(authorization);
+       CustomerAuthTokenEntity customerAuthToken = authenticationService.logout(authorization);
        CustomerEntity customer = customerAuthToken.getCustomers();
        LogoutResponse logoutResponse = new LogoutResponse().id(customer.getUuid()).message("LOGGED OUT SUCCESSFULLY");
        return new ResponseEntity<LogoutResponse>(logoutResponse, HttpStatus.OK);
@@ -101,8 +101,8 @@ public class CustomerController {
         final String firstName = updateCustomerRequest.getFirstName();
         final String lastName = updateCustomerRequest.getLastName();
 
-       CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(authorizationToken);
-       CustomerEntity customer = updateCustomerService.updateCustomer(firstName,lastName,customerAuthToken);
+       CustomerEntity customerEntity = updateCustomerService.getCustomer(authorizationToken);
+       CustomerEntity customer = updateCustomerService.updateCustomer(firstName,lastName,customerEntity);
        UpdateCustomerResponse updateCustomerResponse = new UpdateCustomerResponse().id(customer.getUuid())
                .status("CUSTOMER DETAILS UPDATED SUCCESSFULLY")
                .firstName(customer.getFirstname())
@@ -114,10 +114,10 @@ public class CustomerController {
     @RequestMapping(method = RequestMethod.PUT , path = "/customer/password", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UpdatePasswordResponse> changePassword (@RequestBody(required = false) final UpdatePasswordRequest updatePasswordRequest,
                                                                   @RequestHeader("authorization") final String authToken) throws AuthorizationFailedException, UpdateCustomerException {
-       CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(authToken);
         final String oldPassword = updatePasswordRequest.getOldPassword();
         final String newPassword = updatePasswordRequest.getNewPassword();
-        CustomerEntity customerUpdatedPassword = updateCustomerService.updatePassword(oldPassword,newPassword,customerAuthToken.getCustomers());
+        CustomerEntity customerEntity = updateCustomerService.getCustomer(authToken);
+        CustomerEntity customerUpdatedPassword = updateCustomerService.updateCustomerPassword(oldPassword,newPassword,customerEntity);
         UpdatePasswordResponse updatePasswordResponse = new UpdatePasswordResponse().id(customerUpdatedPassword.getUuid())
                 .status("CUSTOMER PASSWORD UPDATED SUCCESSFULLY");
         return new ResponseEntity<UpdatePasswordResponse>(updatePasswordResponse, HttpStatus.OK);
