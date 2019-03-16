@@ -65,7 +65,7 @@ public class AuthenticationService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public CustomerAuthTokenEntity tokenAuthenticate(final String authToken) throws AuthorizationFailedException {
+    public CustomerAuthTokenEntity tokenAuthenticate(final String accessToken) throws AuthorizationFailedException {
        // CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(authToken);
         ZonedDateTime now = ZonedDateTime.now();
       /*  if(customerAuthToken == null){
@@ -77,24 +77,23 @@ public class AuthenticationService {
             throw new AuthorizationFailedException("ATHR-003","(Your session is expired. Log in again to access this endpoint.");
         }else{*/
 
-        CustomerAuthTokenEntity customerAuthToken = authCustomerToken(authToken);
-            customerAuthToken.setLogoutAt(now);
-            CustomerAuthTokenEntity updateToken = customerDao.updateAuthToken(customerAuthToken);
-            return updateToken;
+        CustomerAuthTokenEntity customerAuthToken = authCustomerToken(accessToken);
+        customerAuthToken.setLogoutAt(now);
+        CustomerAuthTokenEntity updateToken = customerDao.updateAuthToken(customerAuthToken);
+        return updateToken;
 
     }
 
-    public CustomerAuthTokenEntity authCustomerToken(final String authorization) throws AuthorizationFailedException {
-        CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(authorization);
+    public CustomerAuthTokenEntity authCustomerToken(final String accessToken) throws AuthorizationFailedException {
+        CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(accessToken);
         ZonedDateTime now = ZonedDateTime.now();
         if(customerAuthToken == null){
             throw new AuthorizationFailedException("ATHR-001","Customer is not Logged in.");
-        }else if(customerAuthToken.getLogoutAt() != null){
-            throw new AuthorizationFailedException("ATHR-0021","Customer is logged out. Log in again to access this endpoint.");
-
-        }else if(now.isAfter(customerAuthToken.getExpiresAt())){
+        } else if(customerAuthToken.getLogoutAt() != null) {
+            throw new AuthorizationFailedException("ATHR-002","Customer is logged out. Log in again to access this endpoint.");
+        } else if(now.isAfter(customerAuthToken.getExpiresAt())) {
             throw new AuthorizationFailedException("ATHR-003","(Your session is expired. Log in again to access this endpoint.");
-        }else{
+        } else {
             return customerAuthToken;
         }
     }

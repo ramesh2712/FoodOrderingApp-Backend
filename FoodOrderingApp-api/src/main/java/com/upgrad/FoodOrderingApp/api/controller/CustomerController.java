@@ -59,6 +59,7 @@ public class CustomerController {
         // Check for correct format for credentials ...
         String[] decodedArray= authenticationService.authenticate(authorization);
 
+        // Get Login Response If login is successfull
        CustomerAuthTokenEntity customerAuthToken = authenticationService.authenticateCustomer(decodedArray[0],decodedArray[1]);
        CustomerEntity customerEntity = customerAuthToken.getCustomers();
        LoginResponse loginResponse = new LoginResponse().id(customerAuthToken.getUuid())
@@ -80,8 +81,10 @@ public class CustomerController {
         return new ResponseEntity<LoginResponse>(loginResponse,headers,HttpStatus.OK);
     }
 
+    // logout endpoint ....
     @RequestMapping(method = RequestMethod.POST , path = "/customer/logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<LogoutResponse> logout (final String authorization) throws AuthorizationFailedException {
+    public ResponseEntity<LogoutResponse> logout(@RequestHeader("authorization") final String authorization) throws AuthorizationFailedException {
+
        CustomerAuthTokenEntity customerAuthToken = authenticationService.tokenAuthenticate(authorization);
        CustomerEntity customer = customerAuthToken.getCustomers();
        LogoutResponse logoutResponse = new LogoutResponse().id(customer.getUuid()).message("LOGGED OUT SUCCESSFULLY");
