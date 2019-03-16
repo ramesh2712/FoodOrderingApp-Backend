@@ -72,6 +72,7 @@ public class AuthenticationService {
         return updateToken;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public CustomerAuthTokenEntity authCustomerToken(final String accessToken) throws AuthorizationFailedException {
         CustomerAuthTokenEntity customerAuthToken =  customerDao.getAuthToken(accessToken);
         ZonedDateTime now = ZonedDateTime.now();

@@ -36,8 +36,6 @@ public class StateEntity {
     @OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
     private Set<AddressEntity> address ;
 
-
-
     public Integer getId() {
         return id;
     }

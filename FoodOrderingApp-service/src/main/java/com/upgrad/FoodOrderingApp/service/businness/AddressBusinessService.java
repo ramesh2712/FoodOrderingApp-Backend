@@ -24,16 +24,16 @@ public class AddressBusinessService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public AddressEntity customerAddressSave (final AddressEntity addressEntity) throws SaveAddressException, AddressNotFoundException {
-        if((addressEntity.getCity() == null) || (addressEntity.getFlatBuilNumber() == null) || (addressEntity.getLocality() == null)
-                || (addressEntity.getPinCode() == null)){
+        if((addressEntity.getCity().length() == 0) ||
+                (addressEntity.getFlatBuilNumber().length() == 0) ||
+                (addressEntity.getLocality().length() == 0) ||
+                (addressEntity.getPinCode().length() == 0)) {
             throw new SaveAddressException("SAR-001","No field can be empty");
         } else if (addressEntity.getPinCode().matches("[0-9]+") && addressEntity.getPinCode().length()!= 6){
             throw new SaveAddressException("SAR-002","Invalid pincode");
         } else{
             return addressDao.createAddress(addressEntity);
-
         }
-
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -54,7 +54,7 @@ public class AddressBusinessService {
 
   @Transactional(propagation = Propagation.REQUIRED)
     public CustomerAddressEntity saveCustomerAddress (CustomerAddressEntity customerAddress){
-        return addressDao.customerAddress (customerAddress);
+        return addressDao.customerAddress(customerAddress);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

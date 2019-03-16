@@ -54,7 +54,6 @@ public class AddressEntity {
     private StateEntity state;
 
 
-
   /*  @ManyToMany(mappedBy = "address",fetch = FetchType.EAGER)
     private List<CustomerEntity> customer = new ArrayList<CustomerEntity>();*/
 
