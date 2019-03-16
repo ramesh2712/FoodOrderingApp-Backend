@@ -92,17 +92,21 @@ public class CustomerController {
 
     }
 
+    // Update endpoint ....
     @RequestMapping(method = RequestMethod.PUT , path = "/customer", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UpdateCustomerResponse> update(final UpdateCustomerRequest updateCustomerRequest,
+    public ResponseEntity<UpdateCustomerResponse> update(@RequestBody(required = false) final UpdateCustomerRequest updateCustomerRequest,
                                                          @RequestHeader("authorization") final String authorization) throws AuthorizationFailedException, UpdateCustomerException {
 
         final String authorizationToken = authorization.split("Bearer ")[1];
         final String firstName = updateCustomerRequest.getFirstName();
         final String lastName = updateCustomerRequest.getLastName();
+
        CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(authorizationToken);
        CustomerEntity customer = updateCustomerService.updateCustomer(firstName,lastName,customerAuthToken);
-       UpdateCustomerResponse updateCustomerResponse = new UpdateCustomerResponse().id(customer.getUuid()).status("CUSTOMER DETAILS UPDATED SUCCESSFULLY")
-               .firstName(customer.getFirstname()).lastName(customer.getLastname());
+       UpdateCustomerResponse updateCustomerResponse = new UpdateCustomerResponse().id(customer.getUuid())
+               .status("CUSTOMER DETAILS UPDATED SUCCESSFULLY")
+               .firstName(customer.getFirstname())
+               .lastName(customer.getLastname());
        return new ResponseEntity<UpdateCustomerResponse>(updateCustomerResponse,HttpStatus.OK);
     }
 

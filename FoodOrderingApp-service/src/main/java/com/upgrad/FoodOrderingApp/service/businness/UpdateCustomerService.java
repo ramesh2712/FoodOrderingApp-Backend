@@ -23,7 +23,7 @@ public class UpdateCustomerService {
     @Transactional(propagation = Propagation.REQUIRED)
     public CustomerEntity updateCustomer (final String firstName,final String lastName,final CustomerAuthTokenEntity customerAuthToken) throws UpdateCustomerException {
 
-        if(firstName == null){
+        if(firstName.length() == 0){
             throw new UpdateCustomerException("UCR-002","First name field should not be empty");
         }
         else{
