@@ -36,7 +36,7 @@ public class CustomerController {
     // signup Endpoint ...
 
     @RequestMapping(method = RequestMethod.POST,path = "/customer/signup", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SignupCustomerResponse> signup (final SignupCustomerRequest signupCustomerRequest) throws SignUpRestrictedException {
+    public ResponseEntity<SignupCustomerResponse> signup(@RequestBody(required = false) final SignupCustomerRequest signupCustomerRequest) throws SignUpRestrictedException {
 
         final CustomerEntity customerEntity =new CustomerEntity();
         customerEntity.setUuid(UUID.randomUUID().toString());
@@ -51,21 +51,33 @@ public class CustomerController {
         return new ResponseEntity<SignupCustomerResponse>(signupCustomerResponse, HttpStatus.CREATED);
     }
 
+    // login endpoint ...
+
     @RequestMapping(method=RequestMethod.POST, path="/customer/login", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<LoginResponse> login (@RequestHeader("authorization") final String authorization) throws AuthenticationFailedException {
+
+        // Check for correct format for credentials ...
         String[] decodedArray= authenticationService.authenticate(authorization);
 
        CustomerAuthTokenEntity customerAuthToken = authenticationService.authenticateCustomer(decodedArray[0],decodedArray[1]);
        CustomerEntity customerEntity = customerAuthToken.getCustomers();
-       LoginResponse loginResponse = new LoginResponse().id(customerAuthToken.getUuid()).message("LOGGED IN SUCCESSFULLY").firstName(customerEntity.getFirstname()).lastName(customerEntity.getLastname())
-            .contactNumber(customerEntity.getContactNumber()).emailAddress(customerEntity.getEmail());
+       LoginResponse loginResponse = new LoginResponse().id(customerAuthToken.getUuid())
+               .message("LOGGED IN SUCCESSFULLY")
+               .firstName(customerEntity.getFirstname())
+               .lastName(customerEntity.getLastname())
+               .contactNumber(customerEntity.getContactNumber())
+               .emailAddress(customerEntity.getEmail());
 
-        HttpHeaders headers = new HttpHeaders();
+       // List of Exposed Headers ...
         List<String> header = new ArrayList<>();
-        header.add(customerAuthToken.getAccessToken());
-        headers.setAccessControlExposeHeaders(header);
-        return new ResponseEntity<LoginResponse>(loginResponse,headers,HttpStatus.OK);
+        header.add("access-token");
 
+        // Set Headers ...
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("access-token",customerAuthToken.getAccessToken());
+        headers.setAccessControlExposeHeaders(header);
+
+        return new ResponseEntity<LoginResponse>(loginResponse,headers,HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST , path = "/customer/logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

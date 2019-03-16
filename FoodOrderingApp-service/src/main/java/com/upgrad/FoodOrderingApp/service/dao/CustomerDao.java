@@ -50,17 +50,15 @@ public class CustomerDao {
        }catch(NoResultException nre){
            return null;
        }
-
-
     }
 
     public CustomerAuthTokenEntity updateAuthToken (final CustomerAuthTokenEntity customerAuthToken){
-           entityManager.merge(customerAuthToken);
-           return customerAuthToken;
+        entityManager.merge(customerAuthToken);
+        return customerAuthToken;
     }
 
     public  CustomerEntity updateCustomerDetails (final CustomerEntity customerEntity){
-         return entityManager.merge(customerEntity);
+        return entityManager.merge(customerEntity);
 
     }
 

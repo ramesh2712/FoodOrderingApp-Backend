@@ -48,6 +48,7 @@ public class SignupBusinessService {
                customerEntity.getPassword().length() < 8){
             throw new SignUpRestrictedException("SGR-004","Weak password!");
        } else{
+           // Save Customer details ....
            String[] encryptedText = cryptographyProvider.encrypt(customerEntity.getPassword());
            customerEntity.setSalt(encryptedText[0]);
            customerEntity.setPassword(encryptedText[1]);

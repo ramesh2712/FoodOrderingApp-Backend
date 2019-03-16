@@ -66,10 +66,10 @@ public class CustomerEntity implements Serializable {
                 inverseJoinColumns = @JoinColumn(name = "address_id", referencedColumnName = "id"))
     private List<AddressEntity> address = new ArrayList<AddressEntity>();*/
 
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-   private List<CustomerAddressEntity> customerAddress;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<CustomerAddressEntity> customerAddress;
 
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customers")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customers")
     private List<CustomerAuthTokenEntity> customerAuth = new ArrayList<>();
 
     public Integer getId() {

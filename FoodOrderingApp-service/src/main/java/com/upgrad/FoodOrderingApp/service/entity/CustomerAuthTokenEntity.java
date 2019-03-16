@@ -31,7 +31,7 @@ public class CustomerAuthTokenEntity {
     @NotNull
     private String uuid;
 
-   @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
     @OnDelete(action=OnDeleteAction.CASCADE)
     private CustomerEntity customers;
