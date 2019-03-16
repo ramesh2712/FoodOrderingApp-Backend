@@ -57,7 +57,7 @@ public class AddressController {
         return new ResponseEntity<SaveAddressResponse>(saveAddressResponse,HttpStatus.OK);
     }
 
-  /* @RequestMapping(method = RequestMethod.GET, path = "/address/customer" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+   @RequestMapping(method = RequestMethod.GET, path = "/address/customer" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AddressListResponse> getSavedAddress (@RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException {
            CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
            CustomerEntity customer = customerAuthToken.getCustomers();
@@ -82,7 +82,7 @@ public class AddressController {
                addressListResponse.addresses(arrayList);
            }
        return new ResponseEntity<AddressListResponse>(addressListResponse,HttpStatus.OK);
-    }*/
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/address/{address_id}" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<DeleteAddressResponse> deleteCustomerAddress(@PathVariable("address_id") final String uUid,

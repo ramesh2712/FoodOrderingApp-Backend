@@ -46,10 +46,10 @@ public class AddressBusinessService {
         }
     }
 
-   /* @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<AddressEntity> getCustomerAddress (final String accessToken){
          return addressDao.getddress(accessToken);
-    }*/
+    }
 
 
   @Transactional(propagation = Propagation.REQUIRED)

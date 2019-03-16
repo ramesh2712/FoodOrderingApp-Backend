@@ -18,7 +18,7 @@ import javax.validation.constraints.*;
  * SaveOrderRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-03-15T17:45:14.220+05:30")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-03-16T15:31:24.823+05:30")
 
 public class SaveOrderRequest   {
   @JsonProperty("address_id")

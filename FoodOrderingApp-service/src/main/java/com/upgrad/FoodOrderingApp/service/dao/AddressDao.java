@@ -33,10 +33,10 @@ public class AddressDao {
         }
     }
 
-  /*  public List<AddressEntity> getddress (final String accessToken){
+    public List<AddressEntity> getddress (final String accessToken){
       return entityManager.createNamedQuery("getAddress2",AddressEntity.class).setParameter("accessToken",accessToken)
                 .getResultList();
-    }*/
+    }
 
   /*  public void saveCustAdd(CustomerAddressEntity customerAddressEntity){
         entityManager.persist(customerAddressEntity);

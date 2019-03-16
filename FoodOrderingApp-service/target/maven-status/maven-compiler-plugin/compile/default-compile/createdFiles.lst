@@ -29,6 +29,7 @@ com\upgrad\FoodOrderingApp\service\exception\RestaurantNotFoundException.class
 com\upgrad\FoodOrderingApp\service\businness\UpdateCustomerService.class
 com\upgrad\FoodOrderingApp\service\businness\RestaurantBusinessService.class
 com\upgrad\FoodOrderingApp\service\businness\SignupBusinessService.class
+com\upgrad\FoodOrderingApp\service\entity\RestaurantCategoryEntity.class
 com\upgrad\FoodOrderingApp\service\exception\AddressNotFoundException.class
 com\upgrad\FoodOrderingApp\service\exception\InvalidRatingException.class
 com\upgrad\FoodOrderingApp\service\common\UnexpectedException.class

@@ -7,6 +7,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurant")
@@ -51,6 +53,9 @@ public class RestaurantEntity {
    @ManyToOne
    @JoinColumn(name = "ADDRESS_ID")
    private AddressEntity restAddress;
+
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+   List<RestaurantCategoryEntity> restaurantCategory = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -114,6 +119,14 @@ public class RestaurantEntity {
 
     public void setRestAddress(AddressEntity restAddress) {
         this.restAddress = restAddress;
+    }
+
+    public List<RestaurantCategoryEntity> getRestaurantCategory() {
+        return restaurantCategory;
+    }
+
+    public void setRestaurantCategory(List<RestaurantCategoryEntity> restaurantCategory) {
+        this.restaurantCategory = restaurantCategory;
     }
 
     @Override

@@ -7,13 +7,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
 
 @NamedQueries(
         {
-                @NamedQuery(name = "getCategory", query = "select c from CategoryEntity c order By c.categoryName")
+                @NamedQuery(name = "getCategory", query = "select c from CategoryEntity c order By c.categoryName"),
+                @NamedQuery(name = "getCategoryById", query = "select c from CategoryEntity c where c.uuid=:uuid")
         }
 )
 public class CategoryEntity {
@@ -29,6 +32,9 @@ public class CategoryEntity {
 
     @Column(name = "CATEGORY_NAME")
     private String categoryName;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    List<RestaurantCategoryEntity> categoryRestauant = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -52,6 +58,30 @@ public class CategoryEntity {
 
     public void setCategory_name(String category_name) {
         this.categoryName = category_name;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public List<RestaurantCategoryEntity> getCategoryRestauant() {
+        return categoryRestauant;
+    }
+
+    public void setCategoryRestauant(List<RestaurantCategoryEntity> categoryRestauant) {
+        this.categoryRestauant = categoryRestauant;
     }
 
     @Override

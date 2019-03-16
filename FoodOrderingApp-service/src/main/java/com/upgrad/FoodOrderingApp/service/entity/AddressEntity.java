@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "address")
 @NamedQueries(
         {
-              //  @NamedQuery(name = "getAddress2", query = "select distinct a from AddressEntity a inner join a.customerAddress ca on ca.address_id = a.id  inner join ca.customer c on c.id = ca.customer_id inner join c.customerAuth au on au.customer_id = c.id where au.accessToken=:accessToken"),
+              //  @NamedQuery(name = "getAddress2", query = "select distinct a from AddressEntity a inner join a.addressCustomer ca on ca.address_id = a.id  inner join ca.customer c on c.id = ca.customer_id inner join c.customerAuth au on au.customer_id = c.id where au.accessToken=:accessToken"),
                 @NamedQuery(name = "getAddressUuid", query = "select a from AddressEntity a where a.uuid=:uuid")
         }
 )
@@ -60,7 +60,7 @@ public class AddressEntity {
     private List<CustomerEntity> customer = new ArrayList<CustomerEntity>();*/
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
-    private List<CustomerAddressEntity> customerAddress = new ArrayList<>();
+    private List<CustomerAddressEntity> addressCustomer = new ArrayList<>();
 
 
     public Integer getId() {
@@ -127,12 +127,20 @@ public class AddressEntity {
         this.active = active;
     }
 
-    public List<CustomerAddressEntity> getCustomerAddress() {
-        return customerAddress;
+    public List<RestaurantEntity> getRestaurant() {
+        return restaurant;
     }
 
-    public void setCustomerAddress(List<CustomerAddressEntity> customerAddress) {
-        this.customerAddress = customerAddress;
+    public void setRestaurant(List<RestaurantEntity> restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public List<CustomerAddressEntity> getAddressCustomer() {
+        return addressCustomer;
+    }
+
+    public void setAddressCustomer(List<CustomerAddressEntity> addressCustomer) {
+        this.addressCustomer = addressCustomer;
     }
 
     @Override
