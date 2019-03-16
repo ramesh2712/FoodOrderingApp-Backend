@@ -2,86 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2187793b-e64d-48fa-93dc-77d9c32a3738" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/AddressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/AddressController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/RestaurantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/RestaurantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/FoodOrderingApp-api-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/FoodOrderingApp-api-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/.swagger-codegen-ignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/.swagger-codegen/VERSION" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/com/upgrad/FoodOrderingApp/api/controller/AddressController.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/com/upgrad/FoodOrderingApp/api/controller/AddressController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/com/upgrad/FoodOrderingApp/api/controller/RestaurantController.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/com/upgrad/FoodOrderingApp/api/controller/RestaurantController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/classes/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/AddressList.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/AddressList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/AddressListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/AddressListResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/AddressListState.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/AddressListState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CategoriesListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CategoriesListResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CategoryDetailsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CategoryDetailsResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CategoryList.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CategoryList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CategoryListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CategoryListResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CouponDetailsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CouponDetailsResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CustomerOrderResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/CustomerOrderResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/DeleteAddressResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/DeleteAddressResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ErrorResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ErrorResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemListResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemQuantity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemQuantity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemQuantityResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemQuantityResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemQuantityResponseItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/ItemQuantityResponseItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/LoginResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/LogoutResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/LogoutResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderList.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListAddress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListAddressState.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListAddressState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListCoupon.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListCoupon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListCustomer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/OrderListPayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/PaymentListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/PaymentListResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/PaymentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/PaymentResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantDetailsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantDetailsResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantDetailsResponseAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantDetailsResponseAddress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantDetailsResponseAddressState.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantDetailsResponseAddressState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantList.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantListResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantUpdatedResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/RestaurantUpdatedResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SaveAddressRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SaveAddressRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SaveAddressResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SaveAddressResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SaveOrderRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SaveOrderRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SaveOrderResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SaveOrderResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SignupCustomerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SignupCustomerRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SignupCustomerResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/SignupCustomerResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/StatesList.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/StatesList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/StatesListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/StatesListResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/UpdateCustomerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/UpdateCustomerRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/UpdateCustomerResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/UpdateCustomerResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/UpdatePasswordRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/UpdatePasswordRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/UpdatePasswordResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/com/upgrad/FoodOrderingApp/api/model/UpdatePasswordResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/api/ApiException.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/api/ApiException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/api/ApiOriginFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/api/ApiOriginFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/api/ApiResponseMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/api/ApiResponseMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/api/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/api/NotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/configuration/SwaggerDocumentationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/generated-sources/io/swagger/configuration/SwaggerDocumentationConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-db/target/FoodOrderingApp-db.jar" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-db/target/FoodOrderingApp-db.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/AddressBusinessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/AddressBusinessService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/RestaurantBusinessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/RestaurantBusinessService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/AddressDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/AddressDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/RestaurantDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/RestaurantDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/AddressEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/AddressEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/CategoryEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/CategoryEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/RestaurantEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/RestaurantEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/FoodOrderingApp-service-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/FoodOrderingApp-service-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/businness/AddressBusinessService.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/businness/AddressBusinessService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/businness/RestaurantBusinessService.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/businness/RestaurantBusinessService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/dao/AddressDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/dao/AddressDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/dao/RestaurantDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/dao/RestaurantDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/entity/AddressEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/entity/AddressEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/entity/CategoryEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/entity/CategoryEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/entity/RestaurantEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/classes/com/upgrad/FoodOrderingApp/service/entity/RestaurantEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/exception/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/exception/RestExceptionHandler.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -97,24 +18,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RestaurantController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/RestaurantController.java">
+      <file leaf-file-name="RestExceptionHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/exception/RestExceptionHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="90" column="43" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="43" />
+            <state relative-caret-position="384">
+              <caret line="45" column="93" selection-start-line="45" selection-start-column="93" selection-end-line="45" selection-end-column="93" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RestaurantEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/RestaurantEntity.java">
+      <file leaf-file-name="RestaurantBusinessService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/RestaurantBusinessService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-              <folding>
-                <element signature="e#2992#2993#0" expanded="true" />
-                <element signature="e#3033#3034#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="361">
+              <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -192,7 +109,6 @@
         <option value="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/ItemService.java" />
         <option value="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/ItemController.java" />
         <option value="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/OrderService.java" />
-        <option value="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/exception/RestExceptionHandler.java" />
         <option value="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/PaymentServiceImpl.java" />
         <option value="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/PaymentService.java" />
         <option value="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/AddressServiceImpl.java" />
@@ -231,6 +147,7 @@
         <option value="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/RestaurantDao.java" />
         <option value="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/RestaurantBusinessService.java" />
         <option value="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/RestaurantController.java" />
+        <option value="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/exception/RestExceptionHandler.java" />
       </list>
     </option>
   </component>
@@ -631,7 +548,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="254393000" />
+    <option name="totallyTimeSpent" value="254762000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -657,8 +574,8 @@
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32838285" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.7128713" />
       <window_info anchor="bottom" id="Spring" order="10" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.38778877" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24357034" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.38778877" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24357034" />
       <window_info anchor="right" id="Bean Validation" order="9" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="8" />
@@ -752,7 +669,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/util/List.java" />
     <entry file="file://$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/CategoryService.java" />
     <entry file="file://$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/ItemService.java" />
     <entry file="file://$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/OrderService.java" />
@@ -975,13 +891,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/RestaurantBusinessService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/CategoryEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1038,8 +947,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/RestaurantController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="90" column="43" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="43" />
+        <state relative-caret-position="278">
+          <caret line="118" column="8" lean-forward="true" selection-start-line="118" selection-start-column="8" selection-end-line="118" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/RestaurantBusinessService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/exception/RestExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="45" column="93" selection-start-line="45" selection-start-column="93" selection-end-line="45" selection-end-column="93" />
         </state>
       </provider>
     </entry>
