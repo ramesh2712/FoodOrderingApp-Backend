@@ -110,9 +110,10 @@ public class CustomerController {
        return new ResponseEntity<UpdateCustomerResponse>(updateCustomerResponse,HttpStatus.OK);
     }
 
+    // Change Password endpoint ...
     @RequestMapping(method = RequestMethod.PUT , path = "/customer/password", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UpdatePasswordResponse> changePassword (final UpdatePasswordRequest updatePasswordRequest,
-                                                                      @RequestHeader("authorization") final String authToken) throws AuthorizationFailedException, UpdateCustomerException {
+    public ResponseEntity<UpdatePasswordResponse> changePassword (@RequestBody(required = false) final UpdatePasswordRequest updatePasswordRequest,
+                                                                  @RequestHeader("authorization") final String authToken) throws AuthorizationFailedException, UpdateCustomerException {
        CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(authToken);
         final String oldPassword = updatePasswordRequest.getOldPassword();
         final String newPassword = updatePasswordRequest.getNewPassword();
@@ -122,5 +123,4 @@ public class CustomerController {
         return new ResponseEntity<UpdatePasswordResponse>(updatePasswordResponse, HttpStatus.OK);
 
     }
-
 }

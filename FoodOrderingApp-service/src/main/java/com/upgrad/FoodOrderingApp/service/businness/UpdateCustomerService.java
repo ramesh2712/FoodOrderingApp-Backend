@@ -19,15 +19,12 @@ public class UpdateCustomerService {
     @Autowired
     private PasswordCryptographyProvider cryptographyProvider;
 
-
     @Transactional(propagation = Propagation.REQUIRED)
     public CustomerEntity updateCustomer (final String firstName,final String lastName,final CustomerAuthTokenEntity customerAuthToken) throws UpdateCustomerException {
 
-        if(firstName.length() == 0){
+        if(firstName.length() == 0) {
             throw new UpdateCustomerException("UCR-002","First name field should not be empty");
-        }
-        else{
-
+        } else {
             CustomerEntity customer = customerAuthToken.getCustomers();
             customer.setFirstname(firstName);
             customer.setLastname(lastName);
@@ -37,21 +34,21 @@ public class UpdateCustomerService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public CustomerEntity updatePassword (final String oldPassword, final String newPassword, final CustomerEntity customer) throws UpdateCustomerException {
-        if(oldPassword == null || newPassword == null){
-            throw new UpdateCustomerException("(UCR-003","No field should be empty");
-        }else if(!newPassword.matches("^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*\\d).+$")){
+        // Check for different password validations .....
+        if(oldPassword.length() == 0 || newPassword.length() == 0) {
+            throw new UpdateCustomerException("UCR-003","No field should be empty");
+        } else if(!newPassword.matches("^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*\\d).+$") || newPassword.length() < 8) {
             throw new UpdateCustomerException("UCR-001","Weak password!");
-        }else{
+        } else {
              final String passwordEncrypt = cryptographyProvider.encrypt(oldPassword,customer.getSalt());
-             if(!passwordEncrypt.equals(customer.getPassword())){
+             if(!passwordEncrypt.equals(customer.getPassword())) {
                  throw new UpdateCustomerException("UCR-004","Incorrect old password!");
-             }else{
+             } else {
                  final String newPasswordEncrypt = cryptographyProvider.encrypt(newPassword,customer.getSalt());
                  customer.setPassword(newPasswordEncrypt);
                  CustomerEntity customerUpdate = customerDao.updateCustomerPassword(customer);
                  return customerUpdate;
              }
-
         }
     }
 
