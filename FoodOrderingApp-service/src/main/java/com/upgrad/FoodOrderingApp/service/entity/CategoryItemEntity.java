@@ -10,23 +10,23 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "restaurant_category")
-public class RestaurantCategoryEntity {
+@Table(name = "CATEGORY_ITEM")
+public class CategoryItemEntity {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ITEM_ID")
     @OnDelete(action=OnDeleteAction.CASCADE)
-    private RestaurantEntity restaurant;
+    private ItemEntity item;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CATEGORY_ID")
     @OnDelete(action=OnDeleteAction.CASCADE)
-    private CategoryEntity category;
+    private ItemEntity categoryItem;
 
     public Integer getId() {
         return id;
@@ -36,21 +36,22 @@ public class RestaurantCategoryEntity {
         this.id = id;
     }
 
-    public RestaurantEntity getRestaurant() {
-        return restaurant;
+    public ItemEntity getItem() {
+        return item;
     }
 
-    public void setRestaurant(RestaurantEntity restaurant) {
-        this.restaurant = restaurant;
+    public void setItem(ItemEntity item) {
+        this.item = item;
     }
 
-    public CategoryEntity getCategory() {
-        return category;
+    public ItemEntity getCategoryItem() {
+        return categoryItem;
     }
 
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
+    public void setCategoryItem(ItemEntity categoryItem) {
+        this.categoryItem = categoryItem;
     }
+
     @Override
     public boolean equals(Object obj) {
         return new EqualsBuilder().append(this, obj).isEquals();

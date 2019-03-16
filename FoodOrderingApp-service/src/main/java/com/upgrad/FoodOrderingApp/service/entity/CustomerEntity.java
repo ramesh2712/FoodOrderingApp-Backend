@@ -34,6 +34,7 @@ public class CustomerEntity implements Serializable {
     private Integer id;
 
     @Column(name = "UUID")
+    @NotNull
     private String uuid;
 
     @Column(name = "FIRSTNAME")

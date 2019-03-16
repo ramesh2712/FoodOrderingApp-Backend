@@ -15,7 +15,8 @@ import java.util.List;
 
 @NamedQueries(
         {
-                @NamedQuery(name = "getRestByName",query = "select r from RestaurantEntity r where r.restaurantName LIKE :restName")
+                @NamedQuery(name = "getRestByName",query = "select r from RestaurantEntity r where r.restaurantName LIKE :restName"),
+                @NamedQuery(name = "getRestById", query = "select r from RestaurantEntity r where r.uuid=:uuid")
         }
 )
 

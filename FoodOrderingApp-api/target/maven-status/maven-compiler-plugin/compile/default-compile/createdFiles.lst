@@ -55,6 +55,7 @@ com\upgrad\FoodOrderingApp\api\model\OrderListPayment.class
 com\upgrad\FoodOrderingApp\api\model\PaymentListResponse.class
 com\upgrad\FoodOrderingApp\api\model\RestaurantDetailsResponseAddressState.class
 io\swagger\RFC3339DateFormat.class
+com\upgrad\FoodOrderingApp\api\controller\RestaurantController$1.class
 io\swagger\configuration\SwaggerDocumentationConfig.class
 com\upgrad\FoodOrderingApp\api\model\CategoryList.class
 com\upgrad\FoodOrderingApp\api\model\OrderListCustomer.class

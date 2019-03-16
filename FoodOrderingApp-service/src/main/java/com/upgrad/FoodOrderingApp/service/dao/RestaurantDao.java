@@ -25,13 +25,20 @@ public class RestaurantDao {
     }
 
     public CategoryEntity getRestByCatId(final String uuid){
-      try{
-          return entityManager.createNamedQuery("getCategoryById",CategoryEntity.class).setParameter("uuid",uuid)
+        try{
+            return entityManager.createNamedQuery("getCategoryById",CategoryEntity.class).setParameter("uuid",uuid)
                   .getSingleResult();
-      }catch(NoResultException nre){
-          return null;
-      }
+        }catch(NoResultException nre){
+            return null;
+        }
+    }
 
-
+    public RestaurantEntity getResaurantById(final String uuid){
+        try{
+            return entityManager.createNamedQuery("getRestById",RestaurantEntity.class).setParameter("uuid",uuid)
+                    .getSingleResult();
+       }catch (NoResultException nre){
+            return null;
+        }
     }
 }

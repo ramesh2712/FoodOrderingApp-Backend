@@ -36,6 +36,9 @@ public class CategoryEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     List<RestaurantCategoryEntity> categoryRestauant = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryItem")
+    List<CategoryItemEntity> categoryItemList = new ArrayList<>();
+
     public Integer getId() {
         return id;
     }
@@ -82,6 +85,14 @@ public class CategoryEntity {
 
     public void setCategoryRestauant(List<RestaurantCategoryEntity> categoryRestauant) {
         this.categoryRestauant = categoryRestauant;
+    }
+
+    public List<CategoryItemEntity> getCategoryItemList() {
+        return categoryItemList;
+    }
+
+    public void setCategoryItemList(List<CategoryItemEntity> categoryItemList) {
+        this.categoryItemList = categoryItemList;
     }
 
     @Override
