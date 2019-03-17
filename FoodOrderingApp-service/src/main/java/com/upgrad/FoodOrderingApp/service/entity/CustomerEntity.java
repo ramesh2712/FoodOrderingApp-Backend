@@ -42,7 +42,6 @@ public class CustomerEntity implements Serializable {
     private String lastname;
 
     @Column(name = "EMAIL")
-
     @NotNull
     @Size(max = 200)
     private String email;
