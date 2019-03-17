@@ -49,6 +49,7 @@ public class AddressController {
        addressEntity.setLocality(saveAddressRequest.getLocality());
        addressEntity.setPinCode(saveAddressRequest.getPincode());
        addressEntity.setUuid(UUID.randomUUID().toString());
+       addressEntity.setActive(1);
        StateEntity state = addressBusinessService.getState(saveAddressRequest.getStateUuid());
        addressEntity.setState(state);
 
@@ -89,12 +90,18 @@ public class AddressController {
        return new ResponseEntity<AddressListResponse>(addressListResponse,HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/address/{address_id}" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<DeleteAddressResponse> deleteCustomerAddress(@PathVariable("address_id") final String uUid,
-                                                                       @RequestHeader("authorization") final String accessToken) throws AddressNotFoundException, UpdateCustomerException {
-        AddressEntity address = addressBusinessService.getAddressByUuid(uUid);
+    //Delete Saved Address endpoint ...
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/address/{address_id}" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<DeleteAddressResponse> deleteCustomerAddress(@PathVariable("address_id") final String uuid,
+                                                                       @RequestHeader("authorization") final String accessToken) throws AddressNotFoundException, UpdateCustomerException , AuthorizationFailedException{
+
+        CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
+        CustomerEntity customer = customerAuthToken.getCustomers();
+
+        AddressEntity address = addressBusinessService.deleteAddress(uuid ,customer);
         UUID addUuid = UUID.fromString(address.getUuid());
-        final  DeleteAddressResponse deleteAddressResponse =  new DeleteAddressResponse().id(addUuid).status("ADDRESS DELETED SUCCESSFULLY");
+        final DeleteAddressResponse deleteAddressResponse =  new DeleteAddressResponse().id(addUuid).status("ADDRESS DELETED SUCCESSFULLY");
         return new ResponseEntity<DeleteAddressResponse>(deleteAddressResponse,HttpStatus.OK);
     }
 
@@ -110,8 +117,5 @@ public class AddressController {
             statesListResponse.addStatesItem(statesList);
         }
         return new ResponseEntity<StatesListResponse>(statesListResponse,HttpStatus.OK);
-
     }
-
-
 }

@@ -46,16 +46,24 @@ public class AddressDao {
        return customerAddress;
     }
 
-  public AddressEntity getAddByuUid(final String uUid) {
-      try {
-          return entityManager.createNamedQuery("getAddressUuid", AddressEntity.class).setParameter("uuid", uUid)
+    public CustomerAddressEntity getCustomerByAddressId(final AddressEntity addressEntity){
+        try {
+            return entityManager.createNamedQuery("getCustomerByAddressId",CustomerAddressEntity.class).
+                    setParameter("address",addressEntity).getSingleResult();
+        }catch (NoResultException nre){
+            return null;
+        }
+    }
+    public AddressEntity getAddressByuUid(final String uUid) {
+       try {
+           return entityManager.createNamedQuery("getAddressUuid", AddressEntity.class).setParameter("uuid", uUid)
                   .getSingleResult();
-      } catch (NoResultException nre) {
+       } catch (NoResultException nre) {
           return null;
-      }
-  }
+       }
+    }
 
-      public AddressEntity deleteAddress ( final AddressEntity addressEntity){
+      public AddressEntity deleteAddress(final AddressEntity addressEntity){
          return entityManager.merge(addressEntity);
       }
 

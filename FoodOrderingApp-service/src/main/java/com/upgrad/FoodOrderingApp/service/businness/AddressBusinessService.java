@@ -6,6 +6,7 @@ import com.upgrad.FoodOrderingApp.service.entity.CustomerAddressEntity;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
 import com.upgrad.FoodOrderingApp.service.entity.StateEntity;
 import com.upgrad.FoodOrderingApp.service.exception.AddressNotFoundException;
+import com.upgrad.FoodOrderingApp.service.exception.AuthorizationFailedException;
 import com.upgrad.FoodOrderingApp.service.exception.SaveAddressException;
 import com.upgrad.FoodOrderingApp.service.exception.UpdateCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,21 +61,28 @@ public class AddressBusinessService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public AddressEntity getAddressByUuid (final String uUid) throws AddressNotFoundException, UpdateCustomerException {
-     AddressEntity address = addressDao.getAddByuUid(uUid);
-      if(uUid == null){
-         throw new UpdateCustomerException("UAR-005","Address id can not be empty");
-     }else if(address == null){
-         throw new AddressNotFoundException("(ANF-003","No address by this id");
-     }else{
-          address.setActive(0);
-          return addressDao.deleteAddress (address);
-     }
+    public AddressEntity deleteAddress(final String uuid , CustomerEntity customerEntity) throws AddressNotFoundException, UpdateCustomerException ,AuthorizationFailedException {
+
+        AddressEntity addressEntity = addressDao.getAddressByuUid(uuid);
+        if (uuid == null) {
+             throw new UpdateCustomerException("UAR-005","Address id can not be empty");
+        } else if (addressEntity == null){
+             throw new AddressNotFoundException("ANF-003","No address by this id");
+        }
+        // Check for Valid AccessToken .....
+        final CustomerAddressEntity customerAddressEntity = addressDao.getCustomerByAddressId(addressEntity);
+        final CustomerEntity customerEntity1 = customerAddressEntity.getCustomer();
+
+        if(customerEntity1.getId() != customerEntity.getId()){
+            throw new AuthorizationFailedException("ATHR-004", "You are not authorized to view/update/delete any one else's address");
+        }
+        addressEntity.setActive(0);
+        return addressDao.deleteAddress(addressEntity);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<StateEntity> getStates(){
         return addressDao.getAllStates();
     }
-
 
 }
