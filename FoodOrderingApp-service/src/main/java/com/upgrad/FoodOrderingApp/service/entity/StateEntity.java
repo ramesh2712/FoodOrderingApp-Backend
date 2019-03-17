@@ -33,9 +33,6 @@ public class StateEntity {
     @Column(name = "STATE_NAME")
     private String stateName;
 
-    @OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
-    private Set<AddressEntity> address ;
-
     public Integer getId() {
         return id;
     }
@@ -58,14 +55,6 @@ public class StateEntity {
 
     public void setStateName(String stateName) {
         this.stateName = stateName;
-    }
-
-    public Set<AddressEntity> getAddress() {
-        return address;
-    }
-
-    public void setAddress(Set<AddressEntity> address) {
-        this.address = address;
     }
 
     @Override
