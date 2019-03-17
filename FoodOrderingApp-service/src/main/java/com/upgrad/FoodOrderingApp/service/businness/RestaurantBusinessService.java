@@ -69,6 +69,9 @@ public class RestaurantBusinessService {
             throw new InvalidRatingException("IRE-001","(Restaurant should be in the range of 1 to 5");
         }else{
             RestaurantEntity restaurantEntity = resturantDao.getResaurantById(restaurantuUid);
+            if(restaurantEntity == null){
+                throw new RestaurantNotFoundException("RNF-001","No restaurant by this id");
+            }
             restaurantEntity.setCustomer_rating(customer_rating);
             restaurantEntity.setNoCustomersRated(restaurantEntity.getNoCustomersRated()+1);
             return resturantDao.updateCuetomerRating(restaurantEntity);
