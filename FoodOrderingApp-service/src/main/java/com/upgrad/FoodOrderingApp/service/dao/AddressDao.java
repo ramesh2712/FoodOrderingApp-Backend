@@ -32,7 +32,7 @@ public class AddressDao {
         }
     }
 
-    public List<AddressEntity> getddress (final String accessToken){
+    public List<AddressEntity> getAddress(final String accessToken){
        return entityManager.createNamedQuery("getAddress2",AddressEntity.class).setParameter("accessToken",accessToken)
                 .getResultList();
     }
@@ -41,11 +41,10 @@ public class AddressDao {
         entityManager.persist(customerAddressEntity);
     }*/
 
-  public CustomerAddressEntity customerAddress (CustomerAddressEntity customerAddress){
-      entityManager.persist(customerAddress);
-      return customerAddress;
-
-  }
+    public CustomerAddressEntity customerAddress(CustomerAddressEntity customerAddress){
+       entityManager.persist(customerAddress);
+       return customerAddress;
+    }
 
   public AddressEntity getAddByuUid(final String uUid) {
       try {

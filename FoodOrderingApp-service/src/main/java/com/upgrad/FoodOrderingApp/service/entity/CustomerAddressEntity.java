@@ -8,11 +8,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Table(name = "CUSTOMER_ADDRESS")
-
-
 public class CustomerAddressEntity implements Serializable {
 
     @Id
@@ -20,11 +17,9 @@ public class CustomerAddressEntity implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
-
 
     @ManyToOne
     @JoinColumn(name = "address_id")

@@ -48,18 +48,16 @@ public class AddressEntity {
     @Column(name = "ACTIVE")
     private Integer active;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "STATE_ID")
     @OnDelete(action=OnDeleteAction.CASCADE)
     private StateEntity state;
 
-
-  /*  @ManyToMany(mappedBy = "address",fetch = FetchType.EAGER)
+  /*@ManyToMany(mappedBy = "address",fetch = FetchType.EAGER)
     private List<CustomerEntity> customer = new ArrayList<CustomerEntity>();*/
 
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
-    private List<CustomerAddressEntity> customerAddress = new ArrayList<>();
-
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List <CustomerAddressEntity> customerAddress = new ArrayList<>();
 
     public Integer getId() {
         return id;

@@ -14,6 +14,7 @@ public class CustomerDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     public CustomerEntity createCustomer (final CustomerEntity customerEntity){
         entityManager.persist(customerEntity);
         return customerEntity;
@@ -59,7 +60,6 @@ public class CustomerDao {
 
     public  CustomerEntity updateCustomerDetails (final CustomerEntity customerEntity){
         return entityManager.merge(customerEntity);
-
     }
 
     public CustomerEntity updateCustomerPassword (final CustomerEntity customer){

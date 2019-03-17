@@ -42,6 +42,7 @@ public class AddressController {
 
        CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(authToken);
        CustomerEntity customer = customerAuthToken.getCustomers();
+
        AddressEntity addressEntity = new AddressEntity();
        addressEntity.setCity(saveAddressRequest.getCity());
        addressEntity.setFlatBuilNumber(saveAddressRequest.getFlatBuildingName());
@@ -50,17 +51,16 @@ public class AddressController {
        addressEntity.setUuid(UUID.randomUUID().toString());
        StateEntity state = addressBusinessService.getState(saveAddressRequest.getStateUuid());
        addressEntity.setState(state);
+
        AddressEntity createAddress = addressBusinessService.customerAddressSave(addressEntity);
-       CustomerAddressEntity customerAddress = new CustomerAddressEntity();
-       customerAddress.setAddress(addressEntity);
-       customerAddress.setCustomer(customer);
-       CustomerAddressEntity customerAddressPersist = addressBusinessService.saveCustomerAddress(customerAddress);
+       CustomerAddressEntity customerAddressPersist = addressBusinessService.saveCustomerAddress(customer,createAddress);
 
        final SaveAddressResponse saveAddressResponse = new SaveAddressResponse().id(createAddress.getUuid()).status("ADDRESS SUCCESSFULLY REGISTERED");
        return new ResponseEntity<SaveAddressResponse>(saveAddressResponse,HttpStatus.OK);
     }
 
-   @RequestMapping(method = RequestMethod.GET, path = "/address/customer" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    // Get All Saved Addresses endpoint
+    @RequestMapping(method = RequestMethod.GET, path = "/address/customer" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AddressListResponse> getSavedAddress (@RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException {
            CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
            CustomerEntity customer = customerAuthToken.getCustomers();
@@ -69,7 +69,7 @@ public class AddressController {
            AddressList addressList = new AddressList();
            List<AddressList> arrayList = new ArrayList<>();
            final AddressListResponse addressListResponse = new AddressListResponse();
-            final AddressListState addressListState = new AddressListState();
+           final AddressListState addressListState = new AddressListState();
 
            for(AddressEntity adrss : address){
 

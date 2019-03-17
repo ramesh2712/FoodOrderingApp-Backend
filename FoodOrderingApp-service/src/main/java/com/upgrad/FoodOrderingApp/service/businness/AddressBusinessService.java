@@ -47,13 +47,15 @@ public class AddressBusinessService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<AddressEntity> getCustomerAddress (final String accessToken){
-         return addressDao.getddress(accessToken);
+    public List<AddressEntity> getCustomerAddress(final String accessToken){
+         return addressDao.getAddress(accessToken);
     }
 
-
-  @Transactional(propagation = Propagation.REQUIRED)
-    public CustomerAddressEntity saveCustomerAddress (CustomerAddressEntity customerAddress){
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CustomerAddressEntity saveCustomerAddress(final CustomerEntity customerEntity, final AddressEntity addressEntity){
+        CustomerAddressEntity customerAddress = new CustomerAddressEntity();
+        customerAddress.setAddress(addressEntity);
+        customerAddress.setCustomer(customerEntity);
         return addressDao.customerAddress(customerAddress);
     }
 
