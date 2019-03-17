@@ -41,4 +41,9 @@ public class RestaurantDao {
             return null;
         }
     }
+
+    public RestaurantEntity updateCuetomerRating(final RestaurantEntity restaurantEntity){
+        entityManager.merge(restaurantEntity);
+        return restaurantEntity;
+    }
 }

@@ -34,7 +34,7 @@ public class AddressDao {
     }
 
     public List<AddressEntity> getddress (final String accessToken){
-      return entityManager.createNamedQuery("getAddress2",AddressEntity.class).setParameter("accessToken",accessToken)
+      return entityManager.createNamedQuery("getAddressUuid",AddressEntity.class).setParameter("accessToken",accessToken)
                 .getResultList();
     }
 
