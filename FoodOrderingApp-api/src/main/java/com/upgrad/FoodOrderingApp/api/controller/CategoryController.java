@@ -39,7 +39,6 @@ public class CategoryController {
             categoryListResponse.id(UUID.fromString(c.getUuid()));
             categoryListResponse.categoryName(c.getCategoryName());
             categoryListResponsesList .add(categoryListResponse);
-
         }
         return new ResponseEntity<List<CategoryListResponse>>(categoryListResponsesList, HttpStatus.OK);
     }
