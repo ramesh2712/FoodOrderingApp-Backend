@@ -72,10 +72,10 @@ public class AddressController {
            List<AddressList> arrayList = new ArrayList<>();
 
            final AddressListResponse addressListResponse = new AddressListResponse();
-           final AddressListState addressListState = new AddressListState();
 
            for(AddressEntity object : address){
 
+               final AddressListState addressListState = new AddressListState();
                addressList.setId(UUID.fromString(object.getUuid()));
                addressList.setFlatBuildingName(object.getFlatBuilNumber());
                addressList.setLocality(object.getLocality());
@@ -109,9 +109,9 @@ public class AddressController {
     public ResponseEntity<StatesListResponse> getAllStates(){
         List<StateEntity>  listState = addressBusinessService.getStates();
 
-        StatesList statesList = new StatesList();
         final StatesListResponse statesListResponse = new StatesListResponse();
         for(StateEntity s : listState){
+            StatesList statesList = new StatesList();
             statesList.setId(UUID.fromString(s.getUuid()));
             statesList.setStateName(s.getStateName());
             statesListResponse.addStatesItem(statesList);
