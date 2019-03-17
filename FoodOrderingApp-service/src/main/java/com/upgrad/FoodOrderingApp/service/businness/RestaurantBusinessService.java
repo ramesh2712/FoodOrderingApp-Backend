@@ -74,4 +74,9 @@ public class RestaurantBusinessService {
             return resturantDao.updateCuetomerRating(restaurantEntity);
         }
     }
+
+    public List<RestaurantEntity> getAllRestaurants (){
+        return resturantDao.getALlRest();
+
+    }
 }

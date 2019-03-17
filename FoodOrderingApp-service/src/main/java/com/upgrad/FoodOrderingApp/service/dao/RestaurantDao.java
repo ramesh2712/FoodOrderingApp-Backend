@@ -46,4 +46,8 @@ public class RestaurantDao {
         entityManager.merge(restaurantEntity);
         return restaurantEntity;
     }
+
+    public List<RestaurantEntity> getALlRest(){
+        return entityManager.createNamedQuery("getAllRest",RestaurantEntity.class).getResultList();
+    }
 }
