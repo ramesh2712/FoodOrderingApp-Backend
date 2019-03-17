@@ -64,22 +64,24 @@ public class AddressController {
     public ResponseEntity<AddressListResponse> getSavedAddress (@RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException {
            CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
            CustomerEntity customer = customerAuthToken.getCustomers();
-           List<AddressEntity> address = addressBusinessService.getCustomerAddress(accessToken);
+
+           List<AddressEntity> address = addressBusinessService.getCustomerAddressList(accessToken);
 
            AddressList addressList = new AddressList();
            List<AddressList> arrayList = new ArrayList<>();
+
            final AddressListResponse addressListResponse = new AddressListResponse();
            final AddressListState addressListState = new AddressListState();
 
-           for(AddressEntity adrss : address){
+           for(AddressEntity object : address){
 
-               addressList.setId(UUID.fromString(adrss.getUuid()));
-               addressList.setFlatBuildingName(adrss.getFlatBuilNumber());
-               addressList.setLocality(adrss.getLocality());
-               addressList.setCity(adrss.getCity());
-               addressList.setPincode(adrss.getPinCode());
-               addressListState.setId(UUID.fromString(adrss.getState().getUuid()));
-               addressListState.setStateName(adrss.getState().getStateName());
+               addressList.setId(UUID.fromString(object.getUuid()));
+               addressList.setFlatBuildingName(object.getFlatBuilNumber());
+               addressList.setLocality(object.getLocality());
+               addressList.setCity(object.getCity());
+               addressList.setPincode(object.getPinCode());
+               addressListState.setId(UUID.fromString(object.getState().getUuid()));
+               addressListState.setStateName(object.getState().getStateName());
                addressList.setState(addressListState);
                arrayList.add(addressList);
                addressListResponse.addresses(arrayList);

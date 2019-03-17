@@ -32,7 +32,7 @@ public class AddressDao {
         }
     }
 
-    public List<AddressEntity> getAddress(final String accessToken){
+    public List<AddressEntity> getAddressList(final String accessToken){
        return entityManager.createNamedQuery("getAddress2",AddressEntity.class).setParameter("accessToken",accessToken)
                 .getResultList();
     }
