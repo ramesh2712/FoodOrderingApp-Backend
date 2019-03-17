@@ -8,6 +8,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,8 +36,7 @@ public class StateEntity {
     private String stateName;
 
     @OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
-    private Set<AddressEntity> address ;
-
+    private List<AddressEntity> address = new ArrayList<>();
 
 
     public Integer getId() {
@@ -62,11 +63,11 @@ public class StateEntity {
         this.stateName = stateName;
     }
 
-    public Set<AddressEntity> getAddress() {
+    public List<AddressEntity> getAddress() {
         return address;
     }
 
-    public void setAddress(Set<AddressEntity> address) {
+    public void setAddress(List<AddressEntity> address) {
         this.address = address;
     }
 

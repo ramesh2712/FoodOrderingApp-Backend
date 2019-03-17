@@ -20,6 +20,7 @@ import java.util.List;
         {
               //  @NamedQuery(name = "getAddress2", query = "select distinct a from AddressEntity a inner join a.addressCustomer ca on ca.address_id = a.id  inner join ca.customer c on c.id = ca.customer_id inner join c.customerAuth au on au.customer_id = c.id where au.accessToken=:accessToken"),
                 @NamedQuery(name = "getAddressUuid", query = "select a from AddressEntity a where a.uuid=:uuid")
+
         }
 )
 public class AddressEntity {

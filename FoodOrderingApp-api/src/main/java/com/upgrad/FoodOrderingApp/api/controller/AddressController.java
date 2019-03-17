@@ -58,17 +58,42 @@ public class AddressController {
     }
 
    @RequestMapping(method = RequestMethod.GET, path = "/address/customer" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<AddressListResponse> getSavedAddress (@RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException {
+    public ResponseEntity<List<AddressListResponse>> getSavedAddress (@RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException {
            CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
            CustomerEntity customer = customerAuthToken.getCustomers();
-           List<AddressEntity> address = addressBusinessService.getCustomerAddress(accessToken);
 
-           AddressList addressList = new AddressList();
-           List<AddressList> arrayList = new ArrayList<>();
-           final AddressListResponse addressListResponse = new AddressListResponse();
-            final AddressListState addressListState = new AddressListState();
+             List<CustomerAddressEntity> customerAddressList = new ArrayList<>();
+            List<AddressListResponse> addressListResponsesList = new ArrayList<>();
+             for(CustomerAddressEntity c : customerAddressList){
+                 AddressEntity address = c.getAddress();
+                 AddressList addressList = new AddressList();
+                 addressList.setId(UUID.fromString(address.getUuid()));
+                 addressList.flatBuildingName(address.getFlatBuilNumber());
+                 addressList.locality(address.getLocality());
+                 addressList.city(address.getCity());
+                 addressList.pincode(address.getPinCode());
 
-           for(AddressEntity adrss : address){
+                StateEntity state = address.getState();
+                AddressListState addressListState = new AddressListState();
+                addressListState.setStateName(state.getStateName());
+                addressListState.setId(UUID.fromString(state.getUuid()));
+                addressList.state(addressListState);
+
+                AddressListResponse addressListResponse = new AddressListResponse();
+                addressListResponse.addAddressesItem(addressList);
+
+                addressListResponsesList.add(addressListResponse);
+
+             }
+
+         //  List<AddressEntity> address = addressBusinessService.getCustomerAddress(accessToken);
+
+         //  AddressList addressList = new AddressList();
+        //   List<AddressList> arrayList = new ArrayList<>();
+
+        //    final AddressListState addressListState = new AddressListState();
+
+        /*   for(AddressEntity adrss : address){
 
                addressList.setId(UUID.fromString(adrss.getUuid()));
                addressList.setFlatBuildingName(adrss.getFlatBuilNumber());
@@ -80,8 +105,8 @@ public class AddressController {
                addressList.setState(addressListState);
                arrayList.add(addressList);
                addressListResponse.addresses(arrayList);
-           }
-       return new ResponseEntity<AddressListResponse>(addressListResponse,HttpStatus.OK);
+           }*/
+       return new ResponseEntity<List<AddressListResponse>>(addressListResponsesList,HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/address/{address_id}" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
