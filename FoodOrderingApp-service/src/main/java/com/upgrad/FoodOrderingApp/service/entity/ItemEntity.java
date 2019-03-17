@@ -12,6 +12,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "item")
+
+
 public class ItemEntity {
 
     @Id

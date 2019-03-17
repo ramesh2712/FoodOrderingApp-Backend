@@ -207,8 +207,7 @@ public class RestaurantController {
     @RequestMapping(method = RequestMethod.GET, path = "/restaurant", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<RestaurantListResponse>> getAllRestaurants (){
         List<RestaurantEntity> restaurants = restaurantBusinessService.getAllRestaurants();
-        Integer ss = restaurants.size();
-        Integer bb = ss;
+
         String categoryName ;
         List<RestaurantListResponse> restaurantListResponsesList = new ArrayList<>();
         for(RestaurantEntity r : restaurants){
