@@ -1,7 +1,10 @@
 package com.upgrad.FoodOrderingApp.api.controller;
 
-import com.upgrad.FoodOrderingApp.service.businness.CustomerService;
-import com.upgrad.FoodOrderingApp.service.entity.CustomerAuthEntity;
+
+import com.upgrad.FoodOrderingApp.service.businness.AuthenticationService;
+import com.upgrad.FoodOrderingApp.service.businness.SignupBusinessService;
+import com.upgrad.FoodOrderingApp.service.businness.UpdateCustomerService;
+import com.upgrad.FoodOrderingApp.service.entity.CustomerAuthTokenEntity;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
 import com.upgrad.FoodOrderingApp.service.exception.AuthenticationFailedException;
 import com.upgrad.FoodOrderingApp.service.exception.AuthorizationFailedException;
@@ -36,7 +39,14 @@ public class CustomerControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CustomerService mockCustomerService;
+    private SignupBusinessService mockCustomerService;
+
+    @MockBean
+    private UpdateCustomerService mockUpdateCustomerService;
+
+    @MockBean
+    private AuthenticationService mockAuthenticationService;
+
 
     // ----------------------------- POST /customer/signup --------------------------------
 
@@ -60,13 +70,15 @@ public class CustomerControllerTest {
     //This test case passes when you have handled the exception of trying to signup but the request field is empty.
     @Test
     public void shouldNotSignUpForEmptyRequest() throws Exception {
+        when(mockCustomerService.saveCustomer(any()))
+                .thenThrow(new SignUpRestrictedException("SGR-005", "Except last name all fields should be filled"));
         mockMvc
                 .perform(post("/customer/signup")
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                         .content("{\"first_name\":\"first\", \"last_name\":\"last\", \"email_address\":\"\", \"contact_number\":\"9090909090\", \"password\":\"qawsedrf@123\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("code").value("SGR-005"));
-        verify(mockCustomerService, times(0)).saveCustomer(any());
+        verify(mockCustomerService, times(1)).saveCustomer(any());
     }
 
     //This test case passes when you have handled the exception of trying to signup with invalid email-id.
@@ -135,14 +147,15 @@ public class CustomerControllerTest {
     //This test case passes when you are able to login successfully.
     @Test
     public void shouldLoginForValidRequest() throws Exception {
-        final CustomerAuthEntity createdCustomerAuthEntity = new CustomerAuthEntity();
+
+        final CustomerAuthTokenEntity createdCustomerAuthEntity = new CustomerAuthTokenEntity();
         createdCustomerAuthEntity.setAccessToken("accessToken");
         final CustomerEntity customerEntity = new CustomerEntity();
         final String customerId = UUID.randomUUID().toString();
         customerEntity.setUuid(customerId);
-        createdCustomerAuthEntity.setCustomer(customerEntity);
+        createdCustomerAuthEntity.setCustomers(customerEntity);
 
-        when(mockCustomerService.authenticate("9090909090", "CorrectPassword"))
+        when(mockAuthenticationService.authenticateCustomer("9090909090", "CorrectPassword"))
                 .thenReturn(createdCustomerAuthEntity);
 
         mockMvc
@@ -152,7 +165,7 @@ public class CustomerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(customerId))
                 .andExpect(header().exists("access-token"));
-        verify(mockCustomerService, times(1)).authenticate("9090909090", "CorrectPassword");
+        verify(mockAuthenticationService, times(1)).authenticateCustomer("9090909090", "CorrectPassword");
     }
 
     //This test case passes when you have handled the exception of trying to login with invalid authorization format.
@@ -164,14 +177,14 @@ public class CustomerControllerTest {
                         .header("authorization", "Basic " + getEncoder().encodeToString(":".getBytes())))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("code").value("ATH-003"));
-        verify(mockCustomerService, times(0)).authenticate(anyString(), anyString());
+        verify(mockAuthenticationService, times(1)).authenticateCustomer(anyString(), anyString());
     }
 
     //This test case passes when you have handled the exception of trying to login with a contact number that is not
     // registered yet.
     @Test
     public void shouldNotLoginIfNoDataPresentForGivenMobileNo() throws Exception {
-        when(mockCustomerService.authenticate("123", "CorrectPassword"))
+        when(mockAuthenticationService.authenticateCustomer("123", "CorrectPassword"))
                 .thenThrow(new AuthenticationFailedException("ATH-001", "This contact number does not exist"));
         mockMvc
                 .perform(post("/customer/login")
@@ -179,13 +192,13 @@ public class CustomerControllerTest {
                         .header("authorization", "Basic " + getEncoder().encodeToString("123:CorrectPassword".getBytes())))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("code").value("ATH-001"));
-        verify(mockCustomerService, times(1)).authenticate("123", "CorrectPassword");
+        verify(mockAuthenticationService, times(1)).authenticateCustomer("123", "CorrectPassword");
     }
 
     //This test case passes when you have handled the exception of trying to login with incorrect password.
     @Test
     public void shouldNotLoginForWrongPassword() throws Exception {
-        when(mockCustomerService.authenticate("9090909090", "IncorrectPassword"))
+        when(mockAuthenticationService.authenticateCustomer("9090909090", "IncorrectPassword"))
                 .thenThrow(new AuthenticationFailedException("ATH-002", "Password failed"));
         mockMvc
                 .perform(post("/customer/login")
@@ -193,7 +206,7 @@ public class CustomerControllerTest {
                         .header("authorization", "Basic " + getEncoder().encodeToString("9090909090:IncorrectPassword".getBytes())))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("code").value("ATH-002"));
-        verify(mockCustomerService, times(1)).authenticate("9090909090", "IncorrectPassword");
+        verify(mockAuthenticationService, times(1)).authenticateCustomer("9090909090", "IncorrectPassword");
     }
 
     // ----------------------------- POST /customer/logout --------------------------------
@@ -201,12 +214,12 @@ public class CustomerControllerTest {
     //This test case passes when you are able to logout successfully.
     @Test
     public void shouldLogoutForValidRequest() throws Exception {
-        final CustomerAuthEntity createdCustomerAuthEntity = new CustomerAuthEntity();
+        final CustomerAuthTokenEntity createdCustomerAuthEntity = new CustomerAuthTokenEntity();
         final CustomerEntity customerEntity = new CustomerEntity();
         final String customerId = UUID.randomUUID().toString();
         customerEntity.setUuid(customerId);
-        createdCustomerAuthEntity.setCustomer(customerEntity);
-        when(mockCustomerService.logout("access-token")).thenReturn(createdCustomerAuthEntity);
+        createdCustomerAuthEntity.setCustomers(customerEntity);
+        when(mockAuthenticationService.logout("access-token")).thenReturn(createdCustomerAuthEntity);
 
         mockMvc
                 .perform(post("/customer/logout")
@@ -214,13 +227,13 @@ public class CustomerControllerTest {
                         .header("authorization", "Bearer access-token"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(customerId));
-        verify(mockCustomerService, times(1)).logout("access-token");
+        verify(mockAuthenticationService, times(1)).logout("access-token");
     }
 
     //This test case passes when you have handled the exception of trying to logout without even logging in.
     @Test
     public void shouldNotLogoutWhenCustomerIsNotLoggedIn() throws Exception {
-        when(mockCustomerService.logout("auth"))
+        when(mockAuthenticationService.logout("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-001", "Customer is not Logged in."));
 
         mockMvc
@@ -229,13 +242,13 @@ public class CustomerControllerTest {
                         .header("authorization", "Bearer auth"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-001"));
-        verify(mockCustomerService, times(1)).logout("auth");
+        verify(mockAuthenticationService, times(1)).logout("auth");
     }
 
     //This test case passes when you have handled the exception of trying to logout when you have already logged out.
     @Test
     public void shouldNotLogoutIfCustomerIsAlreadyLoggedOut() throws Exception {
-        when(mockCustomerService.logout("auth"))
+        when(mockAuthenticationService.logout("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-002", "Customer is logged out. Log in again to access this endpoint."));
 
         mockMvc
@@ -244,13 +257,13 @@ public class CustomerControllerTest {
                         .header("authorization", "Bearer auth"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-002"));
-        verify(mockCustomerService, times(1)).logout("auth");
+        verify(mockAuthenticationService, times(1)).logout("auth");
     }
 
     //This test case passes when you have handled the exception of trying to logout while your session is already expired.
     @Test
     public void shouldNotLogoutIfSessionIsExpired() throws Exception {
-        when(mockCustomerService.logout("auth"))
+        when(mockAuthenticationService.logout("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint."));
 
         mockMvc
@@ -259,7 +272,7 @@ public class CustomerControllerTest {
                         .header("authorization", "Bearer auth"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-003"));
-        verify(mockCustomerService, times(1)).logout("auth");
+        verify(mockAuthenticationService, times(1)).logout("auth");
     }
 
     // ----------------------------- PUT /customer --------------------------------
@@ -268,17 +281,17 @@ public class CustomerControllerTest {
     @Test
     public void shouldUpdateCustomerDetails() throws Exception {
         final CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setFirstName("firstname");
+        customerEntity.setFirstname("firstname");
         final String customerId = UUID.randomUUID().toString();
         customerEntity.setUuid(customerId);
 
-        when(mockCustomerService.getCustomer("auth")).thenReturn(customerEntity);
+        when(mockUpdateCustomerService.getCustomer("auth")).thenReturn(customerEntity);
 
         final CustomerEntity updatedCustomerEntity = new CustomerEntity();
-        updatedCustomerEntity.setFirstName("first");
-        updatedCustomerEntity.setLastName("last");
+        updatedCustomerEntity.setFirstname("first");
+        updatedCustomerEntity.setLastname("last");
         updatedCustomerEntity.setUuid(customerId);
-        when(mockCustomerService.updateCustomer(customerEntity)).thenReturn(updatedCustomerEntity);
+        when(mockUpdateCustomerService.updateCustomer("first","last",customerEntity)).thenReturn(updatedCustomerEntity);
         mockMvc
                 .perform(put("/customer")
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -286,8 +299,8 @@ public class CustomerControllerTest {
                         .content("{\"first_name\":\"first\", \"last_name\":\"last\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(customerId));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(1)).updateCustomer(customerEntity);
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(1)).updateCustomer("first","last",customerEntity);
     }
 
     //This test case passes when you have handled the exception of trying to update user details but the first name
@@ -301,15 +314,15 @@ public class CustomerControllerTest {
                         .content("{\"first_name\":\"\", \"last_name\":\"last\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("code").value("UCR-002"));
-        verify(mockCustomerService, times(0)).getCustomer(anyString());
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(0)).getCustomer(anyString());
+        verify(mockUpdateCustomerService, times(0)).updateCustomer("","last", any());
     }
 
     //This test case passes when you have handled the exception of trying to update customer details when the customer
     // is not logged in.
     @Test
     public void shouldNotUpdateCustomerDetailsWhenCustomerIsNotLoggedIn() throws Exception {
-        when(mockCustomerService.getCustomer("auth"))
+        when(mockUpdateCustomerService.getCustomer("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-001", "Customer is not Logged in."));
 
         mockMvc
@@ -319,15 +332,15 @@ public class CustomerControllerTest {
                         .content("{\"first_name\":\"first\", \"last_name\":\"last\"}"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-001"));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(0)).updateCustomer("first","last",any());
     }
 
     //This test case passes when you have handled the exception of trying to update customer details while you are
     // already logged out.
     @Test
     public void shouldUpdateCustomerDetailsIfCustomerIsAlreadyLoggedOut() throws Exception {
-        when(mockCustomerService.getCustomer("auth"))
+        when(mockUpdateCustomerService.getCustomer("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-002", "Customer is logged out. Log in again to access this endpoint."));
 
         mockMvc
@@ -337,15 +350,15 @@ public class CustomerControllerTest {
                         .content("{\"first_name\":\"first\", \"last_name\":\"last\"}"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-002"));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(0)).updateCustomer("first", "last",any());
     }
 
     //This test case passes when you have handled the exception of trying to update customer details while your session
     // is already expired.
     @Test
     public void shouldUpdateCustomerDetailsIfSessionIsExpired() throws Exception {
-        when(mockCustomerService.getCustomer("auth"))
+        when(mockUpdateCustomerService.getCustomer("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint."));
 
         mockMvc
@@ -355,8 +368,8 @@ public class CustomerControllerTest {
                         .content("{\"first_name\":\"first\", \"last_name\":\"last\"}"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-003"));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(0)).updateCustomer("first","last",any());
     }
 
     // ----------------------------- PUT /customer/password --------------------------------
@@ -368,8 +381,8 @@ public class CustomerControllerTest {
         final String customerId = UUID.randomUUID().toString();
         customerEntity.setUuid(customerId);
 
-        when(mockCustomerService.getCustomer("auth")).thenReturn(customerEntity);
-        when(mockCustomerService.updateCustomerPassword("oldPwd", "newPwd", customerEntity))
+        when(mockUpdateCustomerService.getCustomer("auth")).thenReturn(customerEntity);
+        when(mockUpdateCustomerService.updateCustomerPassword("oldPwd", "newPwd", customerEntity))
                 .thenReturn(customerEntity);
         mockMvc
                 .perform(put("/customer/password")
@@ -378,8 +391,8 @@ public class CustomerControllerTest {
                         .content("{\"old_password\":\"oldPwd\", \"new_password\":\"newPwd\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(customerId));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(1)).updateCustomerPassword("oldPwd", "newPwd", customerEntity);
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(1)).updateCustomerPassword("oldPwd", "newPwd", customerEntity);
     }
 
     //This test case passes when you have handled the exception of trying to update your password but your old password
@@ -393,8 +406,8 @@ public class CustomerControllerTest {
                         .content("{\"old_password\":\"\", \"new_password\":\"newPwd\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("code").value("UCR-003"));
-        verify(mockCustomerService, times(0)).getCustomer(anyString());
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(0)).getCustomer(anyString());
+        verify(mockUpdateCustomerService, times(0)).updateCustomerPassword("","newPwd",any());
     }
 
     //This test case passes when you have handled the exception of trying to update your password when your new password
@@ -408,15 +421,15 @@ public class CustomerControllerTest {
                         .content("{\"old_password\":\"oldPwd\", \"new_password\":\"\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("code").value("UCR-003"));
-        verify(mockCustomerService, times(0)).getCustomer(anyString());
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(0)).getCustomer(anyString());
+        verify(mockUpdateCustomerService, times(0)).updateCustomerPassword("oldPwd", "",any());
     }
 
     //This test case passes when you have handled the exception of trying to update your password but you are not
     // logged in.
     @Test
     public void shouldNotUpdateCustomerPasswordWhenCustomerIsNotLoggedIn() throws Exception {
-        when(mockCustomerService.getCustomer("auth"))
+        when(mockUpdateCustomerService.getCustomer("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-001", "Customer is not Logged in."));
 
         mockMvc
@@ -426,14 +439,15 @@ public class CustomerControllerTest {
                         .content("{\"old_password\":\"oldPwd\", \"new_password\":\"newPwd\"}"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-001"));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(0)).updateCustomerPassword("oldPwd", "newPwd", any());
     }
 
     //This test case passes when you have handled the exception of trying to update your password but you are already
     // logged out.
+    @Test
     public void shouldUpdateCustomerPasswordIfCustomerIsAlreadyLoggedOut() throws Exception {
-        when(mockCustomerService.getCustomer("auth"))
+        when(mockUpdateCustomerService.getCustomer("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-002", "Customer is logged out. Log in again to access this endpoint."));
 
         mockMvc
@@ -443,14 +457,15 @@ public class CustomerControllerTest {
                         .content("{\"old_password\":\"oldPwd\", \"new_password\":\"newPwd\"}"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-002"));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(0)).updateCustomerPassword("oldPwd","newPwd",any());
     }
 
     //This test case passes when you have handled the exception of trying to update your password but your session is
     // already expired.
+    @Test
     public void shouldUpdateCustomerPasswordIfSessionIsExpired() throws Exception {
-        when(mockCustomerService.getCustomer("auth"))
+        when(mockUpdateCustomerService.getCustomer("auth"))
                 .thenThrow(new AuthorizationFailedException("ATHR-003", "Your session is expired. Log in again to access this endpoint."));
 
         mockMvc
@@ -460,8 +475,8 @@ public class CustomerControllerTest {
                         .content("{\"old_password\":\"oldPwd\", \"new_password\":\"newPwd\"}"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("code").value("ATHR-003"));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(0)).updateCustomer(any());
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(0)).updateCustomerPassword("oldPwd","newPwd",any());
     }
 
     //This test case passes when you have handled the exception of trying to update your password while your new
@@ -469,8 +484,8 @@ public class CustomerControllerTest {
     @Test
     public void shouldNotUpdateCustomerPasswordIfNewPasswordDoesNotFollowRecommendedPasswordFormat() throws Exception {
         final CustomerEntity customerEntity = new CustomerEntity();
-        when(mockCustomerService.getCustomer("auth")).thenReturn(customerEntity);
-        when(mockCustomerService.updateCustomerPassword("oldPwd", "newPwd", customerEntity))
+        when(mockUpdateCustomerService.getCustomer("auth")).thenReturn(customerEntity);
+        when(mockUpdateCustomerService.updateCustomerPassword("oldPwd", "newPwd", customerEntity))
                 .thenThrow(new UpdateCustomerException("UCR-001", "Weak password!"));
         mockMvc
                 .perform(put("/customer/password")
@@ -479,8 +494,7 @@ public class CustomerControllerTest {
                         .content("{\"old_password\":\"oldPwd\", \"new_password\":\"newPwd\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("code").value("UCR-001"));
-        verify(mockCustomerService, times(1)).getCustomer("auth");
-        verify(mockCustomerService, times(1)).updateCustomerPassword("oldPwd", "newPwd", customerEntity);
+        verify(mockUpdateCustomerService, times(1)).getCustomer("auth");
+        verify(mockUpdateCustomerService, times(1)).updateCustomerPassword("oldPwd", "newPwd", customerEntity);
     }
-
 }

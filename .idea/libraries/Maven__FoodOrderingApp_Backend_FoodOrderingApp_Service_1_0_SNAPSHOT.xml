@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: FoodOrderingApp-Backend:FoodOrderingApp-Service:1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/FoodOrderingApp-Backend/FoodOrderingApp-service/1.0-SNAPSHOT/FoodOrderingApp-service-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/FoodOrderingApp-Backend/FoodOrderingApp-Service/1.0-SNAPSHOT/FoodOrderingApp-Service-1.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/FoodOrderingApp-Backend/FoodOrderingApp-Service/1.0-SNAPSHOT/FoodOrderingApp-Service-1.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
