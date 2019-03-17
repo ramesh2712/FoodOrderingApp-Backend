@@ -6,11 +6,13 @@ com\upgrad\FoodOrderingApp\service\exception\AuthenticationFailedException.class
 com\upgrad\FoodOrderingApp\service\entity\AddressEntity.class
 com\upgrad\FoodOrderingApp\service\dao\CustomerDao.class
 com\upgrad\FoodOrderingApp\service\businness\PasswordCryptographyProvider.class
+com\upgrad\FoodOrderingApp\service\dao\CategoryDao.class
 com\upgrad\FoodOrderingApp\service\entity\CategoryItemEntity.class
 com\upgrad\FoodOrderingApp\service\dao\AddressDao.class
 com\upgrad\FoodOrderingApp\service\exception\PaymentMethodNotFoundException.class
 com\upgrad\FoodOrderingApp\service\entity\CustomerEntity.class
 com\upgrad\FoodOrderingApp\service\exception\UpdateCustomerException.class
+com\upgrad\FoodOrderingApp\service\businness\ItemBusinessService.class
 com\upgrad\FoodOrderingApp\service\entity\ItemEntity.class
 com\upgrad\FoodOrderingApp\service\exception\SignUpRestrictedException.class
 com\upgrad\FoodOrderingApp\service\exception\SaveAddressException.class
@@ -20,10 +22,12 @@ com\upgrad\FoodOrderingApp\service\entity\CategoryEntity.class
 com\upgrad\FoodOrderingApp\service\businness\AuthenticationService.class
 com\upgrad\FoodOrderingApp\service\entity\StateEntity.class
 com\upgrad\FoodOrderingApp\service\exception\CustomerNotFoundException.class
+com\upgrad\FoodOrderingApp\service\dao\ItemDao.class
 com\upgrad\FoodOrderingApp\service\entity\CustomerAddressEntity.class
 com\upgrad\FoodOrderingApp\service\entity\RestaurantEntity.class
 com\upgrad\FoodOrderingApp\service\businness\JwtTokenProvider.class
 com\upgrad\FoodOrderingApp\service\common\ErrorCode.class
+com\upgrad\FoodOrderingApp\service\businness\CategoryBusinessService.class
 com\upgrad\FoodOrderingApp\service\ServiceConfiguration.class
 com\upgrad\FoodOrderingApp\service\common\GenericErrorCode.class
 com\upgrad\FoodOrderingApp\service\dao\RestaurantDao.class
