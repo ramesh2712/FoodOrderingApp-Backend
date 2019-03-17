@@ -68,14 +68,12 @@ public class AddressController {
 
            List<AddressEntity> address = addressBusinessService.getCustomerAddressList(accessToken);
 
-           AddressList addressList = new AddressList();
-           List<AddressList> arrayList = new ArrayList<>();
-
            final AddressListResponse addressListResponse = new AddressListResponse();
 
            for(AddressEntity object : address){
-
+               final AddressList addressList = new AddressList();
                final AddressListState addressListState = new AddressListState();
+
                addressList.setId(UUID.fromString(object.getUuid()));
                addressList.setFlatBuildingName(object.getFlatBuilNumber());
                addressList.setLocality(object.getLocality());
@@ -84,8 +82,7 @@ public class AddressController {
                addressListState.setId(UUID.fromString(object.getState().getUuid()));
                addressListState.setStateName(object.getState().getStateName());
                addressList.setState(addressListState);
-               arrayList.add(addressList);
-               addressListResponse.addresses(arrayList);
+               addressListResponse.addAddressesItem(addressList);
            }
        return new ResponseEntity<AddressListResponse>(addressListResponse,HttpStatus.OK);
     }
