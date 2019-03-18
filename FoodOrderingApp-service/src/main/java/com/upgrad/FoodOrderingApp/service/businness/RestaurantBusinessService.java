@@ -77,11 +77,7 @@ public class RestaurantBusinessService {
             if(restaurantEntity == null){
                 throw new RestaurantNotFoundException("RNF-001","No restaurant by this id");
             }
-            BigDecimal rating = restaurantEntity.getCustomer_rating();
-            BigDecimal totalRating = rating.add(customer_rating);
-            BigDecimal divideByTwo = new BigDecimal("2");
-            BigDecimal avgRating = totalRating.divide(divideByTwo,1,RoundingMode.CEILING);
-            restaurantEntity.setCustomer_rating(avgRating);
+            restaurantEntity.setCustomer_rating(customer_rating);
             restaurantEntity.setNoCustomersRated(restaurantEntity.getNoCustomersRated()+1);
             return resturantDao.updateCuetomerRating(restaurantEntity);
         }
