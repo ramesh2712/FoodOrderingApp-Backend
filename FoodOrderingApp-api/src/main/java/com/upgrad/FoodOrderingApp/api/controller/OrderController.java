@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @RestController
@@ -43,40 +44,58 @@ public class OrderController {
     }
 
 
+    // Save Order endpoint ....
+
     @RequestMapping(method = RequestMethod.POST, path = "/order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SaveOrderResponse> saveOrder (final SaveOrderRequest saveOrderRequest,
+    public ResponseEntity<SaveOrderResponse> saveOrder (@RequestBody(required = false) final SaveOrderRequest saveOrderRequest,
                                                         @RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException, AddressNotFoundException, PaymentMethodNotFoundException, RestaurantNotFoundException, CouponNotFoundException, ItemNotFoundException {
 
-        CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
-        OrderEntity orders = new OrderEntity();
+       // Check for User Authorization ...
+        final CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
+        final OrderEntity orders = new OrderEntity();
         orders.setUuid(UUID.randomUUID().toString());
+        // Set Bill ...
         orders.setBill(saveOrderRequest.getBill());
 
-        CouponEntity coupon = orderBusinessService.getCouponId(saveOrderRequest.getCouponId().toString());
+        // Set Coupon  ...
+        final String couponUuid = saveOrderRequest.getCouponId().toString();
+        final CouponEntity coupon = orderBusinessService.getCouponId(couponUuid);
         orders.setCoupon(coupon);
 
-        AddressEntity address = orderBusinessService.getAddressById(saveOrderRequest.getAddressId());
+        // Set Address and check for valid user ...
+        final String addressUuid = saveOrderRequest.getAddressId();
+        final CustomerEntity customerEntity = customerAuthToken.getCustomers();
+        AddressEntity address = orderBusinessService.getAddressById(addressUuid, customerEntity);
         orders.setAddress(address);
 
-        PaymentEntity payment = orderBusinessService.getPaymentById(saveOrderRequest.getPaymentId().toString());
+        // Set Payment method ....
+        final PaymentEntity payment = orderBusinessService.getPaymentById(saveOrderRequest.getPaymentId().toString());
         orders.setPayment(payment);
 
-        orders.setCustomer(customerAuthToken.getCustomers());
+        // Set Customer ...
+        orders.setCustomer(customerEntity);
 
-        orders.setDiscount(saveOrderRequest.getDiscount());
+        // Set discount ...
+        final BigDecimal discount = saveOrderRequest.getDiscount();
+        orders.setDiscount(discount);
 
-        RestaurantEntity restaurant = orderBusinessService.getRestaurantById (saveOrderRequest.getRestaurantId().toString());
+        // Set Restaurant Detail ....
+        final String restaurantUuid = saveOrderRequest.getRestaurantId().toString();
+        RestaurantEntity restaurant = orderBusinessService.getRestaurantById(restaurantUuid);
         orders.setRestaurant(restaurant);
+
+        // Set Date of Order ....
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
-
         orders.setDate(date);
 
-        OrderItemEntity orderItemEntity = new OrderItemEntity();
-        List<ItemQuantity> itemQuantityList = saveOrderRequest.getItemQuantities();
+        // Set Item for Order ....
+        final OrderItemEntity orderItemEntity = new OrderItemEntity();
+        final List<ItemQuantity> itemQuantityList = saveOrderRequest.getItemQuantities();
         List<OrderItemEntity> itemOrderEntities = new ArrayList<>();
         for(ItemQuantity q : itemQuantityList){
-            ItemEntity item = orderBusinessService.getItemById(q.getItemId().toString());
+            final String itemUuid = q.getItemId().toString();
+            final ItemEntity item = orderBusinessService.getItemById(itemUuid);
             orderItemEntity.setItem(item);
             orderItemEntity.setPrice(q.getPrice());
             orderItemEntity.setQuantity(q.getQuantity());
@@ -87,10 +106,9 @@ public class OrderController {
         orders.setOrderItem(itemOrderEntities);
         orderBusinessService.saveOrder(orders);
 
-        SaveOrderResponse saveOrderResponse = new SaveOrderResponse();
+        final SaveOrderResponse saveOrderResponse = new SaveOrderResponse();
         saveOrderResponse.id(orders.getUuid()).status("ORDER SUCCESSFULLY PLACED");
         return new ResponseEntity<SaveOrderResponse>(saveOrderResponse,HttpStatus.OK);
     }
-
 
 }
