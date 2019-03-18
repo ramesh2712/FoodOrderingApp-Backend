@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "orders")
 @NamedQueries(
         {
-                @NamedQuery(name = "getOrderByCustomer", query = "select o from OrderEntity o where o.customer =:customer")
+                @NamedQuery(name = "getOrderByCustomer", query = "select o from OrderEntity o where o.customer =:customer order by o.date desc")
         }
 )
 public class OrderEntity {

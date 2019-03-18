@@ -40,7 +40,6 @@ public class OrderController {
       return new ResponseEntity<CouponDetailsResponse>(couponDetailsResponse,HttpStatus.OK);
     }
 
-
     // Save Order endpoint ....
 
     @RequestMapping(method = RequestMethod.POST, path = "/order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
