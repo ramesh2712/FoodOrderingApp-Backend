@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class OrderDao {
@@ -65,6 +66,13 @@ public class OrderDao {
         return orderEntity;
     }
 
+    public List<OrderEntity> getOrderByCustomer(final CustomerEntity customerEntity){
+        try{
+            return entityManager.createNamedQuery("getOrderByCustomer", OrderEntity.class).setParameter("customer",customerEntity).getResultList();
+        } catch (NoResultException nre){
+            return null;
+        }
+    }
     public ItemEntity getItem(final String uuid){
         try{
            return entityManager.createNamedQuery("getItemById",ItemEntity.class).setParameter("uuid",uuid)

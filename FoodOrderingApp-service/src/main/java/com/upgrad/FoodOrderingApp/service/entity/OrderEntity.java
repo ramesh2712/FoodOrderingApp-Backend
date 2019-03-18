@@ -15,6 +15,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@NamedQueries(
+        {
+                @NamedQuery(name = "getOrderByCustomer", query = "select o from OrderEntity o where o.customer =:customer")
+        }
+)
 public class OrderEntity {
     @Id
     @Column(name = "ID")

@@ -1,9 +1,6 @@
 package com.upgrad.FoodOrderingApp.api.controller;
 
-import com.upgrad.FoodOrderingApp.api.model.CouponDetailsResponse;
-import com.upgrad.FoodOrderingApp.api.model.ItemQuantity;
-import com.upgrad.FoodOrderingApp.api.model.SaveOrderRequest;
-import com.upgrad.FoodOrderingApp.api.model.SaveOrderResponse;
+import com.upgrad.FoodOrderingApp.api.model.*;
 import com.upgrad.FoodOrderingApp.service.businness.AuthenticationService;
 import com.upgrad.FoodOrderingApp.service.businness.OrderBusinessService;
 import com.upgrad.FoodOrderingApp.service.entity.*;
@@ -109,6 +106,19 @@ public class OrderController {
         final SaveOrderResponse saveOrderResponse = new SaveOrderResponse();
         saveOrderResponse.id(orders.getUuid()).status("ORDER SUCCESSFULLY PLACED");
         return new ResponseEntity<SaveOrderResponse>(saveOrderResponse,HttpStatus.OK);
+    }
+
+    // Get Past Orders of User endpoint .....
+
+    @RequestMapping(method = RequestMethod.GET, path = "/order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<OrderList>> getPastOrders(@RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException{
+       // Check for Valid User ...
+        final CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
+        final CustomerEntity customerEntity = customerAuthToken.getCustomers();
+        final List<OrderEntity> orderEntityList = orderBusinessService.getOrderListByCustomer(customerEntity);
+
+
+        return null;
     }
 
 }

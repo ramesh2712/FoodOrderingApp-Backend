@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class OrderBusinessService {
 
@@ -90,5 +92,11 @@ public class OrderBusinessService {
            throw new ItemNotFoundException("INF-003","No item by this id exist");
        }
        return item;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<OrderEntity> getOrderListByCustomer(final CustomerEntity customerEntity){
+        final List<OrderEntity> orderEntityList = orderDao.getOrderByCustomer(customerEntity);
+        return orderEntityList;
     }
 }
