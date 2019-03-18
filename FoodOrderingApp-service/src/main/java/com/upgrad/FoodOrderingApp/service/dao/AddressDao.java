@@ -63,8 +63,12 @@ public class AddressDao {
        }
     }
 
-      public AddressEntity deleteAddress(final AddressEntity addressEntity){
+      public AddressEntity updateAddress(final AddressEntity addressEntity){
          return entityManager.merge(addressEntity);
+      }
+
+      public void deleteAddress(final AddressEntity addressEntity){
+         entityManager.remove(addressEntity);
       }
 
       public List<StateEntity> getAllStates(){

@@ -13,6 +13,11 @@ import java.util.List;
 @Entity
 @Table(name = "item")
 
+@NamedQueries(
+        {
+                @NamedQuery(name = "getItemById", query = "select i from ItemEntity i where i.uuid =:uuid")
+        }
+)
 
 public class ItemEntity {
 
@@ -42,6 +47,9 @@ public class ItemEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
     List<RestaurantItemEntity> restaurantItemList = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
+    private List<OrderItemEntity> itemOrder;
 
     public Integer getId() {
         return id;
@@ -97,6 +105,14 @@ public class ItemEntity {
 
     public void setRestaurantItemList(List<RestaurantItemEntity> restaurantItemList) {
         this.restaurantItemList = restaurantItemList;
+    }
+
+    public List<OrderItemEntity> getItemOrder() {
+        return itemOrder;
+    }
+
+    public void setItemOrder(List<OrderItemEntity> itemOrder) {
+        this.itemOrder = itemOrder;
     }
 
     @Override
