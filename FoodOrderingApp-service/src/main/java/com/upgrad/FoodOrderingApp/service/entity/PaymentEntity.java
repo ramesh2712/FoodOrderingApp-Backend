@@ -14,7 +14,8 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries(
         {
-                @NamedQuery(name = "paymentById", query = "select p from PaymentEntity p where p.uuid=:uuid")
+                @NamedQuery(name = "paymentById", query = "select p from PaymentEntity p where p.uuid=:uuid"),
+                @NamedQuery(name = "payments", query = "select p from PaymentEntity p")
         }
 )
 public class PaymentEntity {
@@ -37,6 +38,22 @@ public class PaymentEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getPaymentName() {
+        return paymentName;
+    }
+
+    public void setPaymentName(String paymentName) {
+        this.paymentName = paymentName;
     }
 
     @Override
