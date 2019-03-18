@@ -32,13 +32,12 @@ public class OrderController {
    @RequestMapping(method = RequestMethod.GET, path = "/order/coupon/{coupon_name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<CouponDetailsResponse> getCouponByCouponName (@PathVariable("coupon_name") final String couponName,
                                                                         @RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException, CouponNotFoundException {
-       CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
-       CouponEntity coupon = orderBusinessService.getCouponByName(couponName);
-
-       CouponDetailsResponse couponDetailsResponse = new CouponDetailsResponse();
-      couponDetailsResponse.id(UUID.fromString(coupon.getUuid()));
-      couponDetailsResponse.couponName(coupon.getCouponName());
-      couponDetailsResponse.percent(coupon.getPercent());
+       final CustomerAuthTokenEntity customerAuthToken = authenticationService.authCustomerToken(accessToken);
+       final CouponEntity coupon = orderBusinessService.getCouponByName(couponName);
+       final CouponDetailsResponse couponDetailsResponse = new CouponDetailsResponse();
+       couponDetailsResponse.id(UUID.fromString(coupon.getUuid()));
+       couponDetailsResponse.couponName(coupon.getCouponName());
+       couponDetailsResponse.percent(coupon.getPercent());
 
       return new ResponseEntity<CouponDetailsResponse>(couponDetailsResponse,HttpStatus.OK);
     }

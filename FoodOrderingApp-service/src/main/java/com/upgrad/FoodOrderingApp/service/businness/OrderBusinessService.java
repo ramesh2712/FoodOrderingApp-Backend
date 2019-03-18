@@ -16,7 +16,7 @@ public class OrderBusinessService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public CouponEntity getCouponByName (final String couponName) throws CouponNotFoundException {
-        if(couponName == null){
+        if(couponName.length() == 0){
             throw new CouponNotFoundException("CPF-002","Coupon name field should not be empty");
         }else{
             CouponEntity coupon = orderDao.getCouponName(couponName);
