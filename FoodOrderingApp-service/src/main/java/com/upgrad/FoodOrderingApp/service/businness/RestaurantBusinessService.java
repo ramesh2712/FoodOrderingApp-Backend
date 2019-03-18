@@ -43,7 +43,7 @@ public class RestaurantBusinessService {
         }else {
             CategoryEntity category = resturantDao.getRestByCatId(categoryUuid);
             if (category == null) {
-                throw new CategoryNotFoundException("CNF-002)", "No category by this id");
+                throw new CategoryNotFoundException("CNF-002", "No category by this id");
             }
             return category;
         }
@@ -58,7 +58,7 @@ public class RestaurantBusinessService {
         }else {
             RestaurantEntity restaurant = resturantDao.getResaurantById(uuid);
             if(restaurant == null){
-                throw new RestaurantNotFoundException("RNF-00","No restaurant by this id");
+                throw new RestaurantNotFoundException("RNF-001","No restaurant by this id");
             }
             return restaurant;
         }

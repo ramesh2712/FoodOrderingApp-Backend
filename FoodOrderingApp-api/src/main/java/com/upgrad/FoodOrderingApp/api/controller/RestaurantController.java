@@ -203,17 +203,19 @@ public class RestaurantController {
            }
 
            categoryName = String.join(", ",stringList);
-            restList.address(restaurantDetailsResponseAddress);
+           restList.address(restaurantDetailsResponseAddress);
            restList.categories(categoryName);
-            List<RestaurantList> restaurantLists = new ArrayList<>();
-            restaurantLists.add(restList);
+           List<RestaurantList> restaurantLists = new ArrayList<>();
+           restaurantLists.add(restList);
+
            RestaurantListResponse restaurantListResponse = new RestaurantListResponse();
-            restaurantListResponse.restaurants(restaurantLists);
-            listRestaurantsResponse.add(restaurantListResponse);
+           restaurantListResponse.restaurants(restaurantLists);
+           listRestaurantsResponse.add(restaurantListResponse);
        }
     return new ResponseEntity<List<RestaurantListResponse>>(listRestaurantsResponse,HttpStatus.OK);
     }
 
+    // Get Restaurant by Restaurant ID endpoint ....
     @RequestMapping(method = RequestMethod.GET, path = "/api/restaurant/{restaurant_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<RestaurantDetailsResponse> getRestaurantsById (@PathVariable("restaurant_id") final String uuid) throws RestaurantNotFoundException {
         RestaurantEntity restaurant = restaurantBusinessService.getRestaurantsById(uuid);
