@@ -1,5 +1,6 @@
 package com.upgrad.FoodOrderingApp.service.entity;
 
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -9,14 +10,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "coupon")
+@Table(name = "payment")
+
 @NamedQueries(
         {
-                @NamedQuery(name = "getCouponByname", query = "select c from CouponEntity c where c.couponName =:couponName"),
-                @NamedQuery(name = "getCouponById", query = "select c from CouponEntity c where c.uuid =:uuid")
+                @NamedQuery(name = "paymentById", query = "select p from PaymentEntity p where p.uuid=:uuid")
         }
 )
-public class CouponEntity {
+public class PaymentEntity {
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -26,12 +28,8 @@ public class CouponEntity {
     @NotNull
     private String uuid;
 
-    @Column(name ="COUPON_NAME")
-    private String couponName;
-
-    @Column (name = "PERCENT")
-    @NotNull
-    private Integer percent;
+    @Column(name = "PAYMENT_NAME")
+    private String paymentName;
 
     public Integer getId() {
         return id;
@@ -39,30 +37,6 @@ public class CouponEntity {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getCouponName() {
-        return couponName;
-    }
-
-    public void setCouponName(String couponName) {
-        this.couponName = couponName;
-    }
-
-    public Integer getPercent() {
-        return percent;
-    }
-
-    public void setPercent(Integer percent) {
-        this.percent = percent;
     }
 
     @Override

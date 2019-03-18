@@ -1,6 +1,7 @@
 package com.upgrad.FoodOrderingApp.service.dao;
 
-import com.upgrad.FoodOrderingApp.service.entity.CouponEntity;
+import com.upgrad.FoodOrderingApp.service.entity.*;
+
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -19,7 +20,57 @@ public class OrderDao {
         }catch(NoResultException nre){
             return null;
         }
+    }
 
+    public CouponEntity getCouponById(final String uuid){
+        try{
+            return entityManager.createNamedQuery("getCouponById",CouponEntity.class).setParameter("uuid",uuid)
+                    .getSingleResult();
+        }catch(NoResultException nre){
+            return null;
+        }
+    }
 
+    public AddressEntity getAddressById(final String uuid){
+        try{
+            return entityManager.createNamedQuery("getAddressUuid",AddressEntity.class).setParameter("uuid",uuid)
+                    .getSingleResult();
+
+        }catch(NoResultException nre){
+            return null;
+
+        }
+    }
+
+    public PaymentEntity getPaymentId (final String uuid){
+        try{
+            return entityManager.createNamedQuery("paymentById",PaymentEntity.class).setParameter("uuid",uuid)
+                    .getSingleResult();
+        }catch(NoResultException nre){
+            return null;
+        }
+    }
+
+    public RestaurantEntity getRestaurantId (final String uuid){
+        try{
+          return   entityManager.createNamedQuery("getRestById",RestaurantEntity.class).setParameter("uuid",uuid)
+                    .getSingleResult();
+        }catch(NoResultException nre){
+            return null;
+        }
+    }
+
+    public OrderEntity saveOrders (final OrderEntity orderEntity){
+        entityManager.persist(orderEntity);
+        return orderEntity;
+    }
+
+    public ItemEntity getItem(final String uuid){
+        try{
+           return entityManager.createNamedQuery("getItemById",ItemEntity.class).setParameter("uuid",uuid)
+                    .getSingleResult();
+        }catch(NoResultException nre){
+            return null;
+        }
     }
 }
