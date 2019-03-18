@@ -131,6 +131,14 @@ public class AddressEntity {
         this.customerAddress = customerAddress;
     }
 
+    public List<RestaurantEntity> getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(List<RestaurantEntity> restaurant) {
+        this.restaurant = restaurant;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return new EqualsBuilder().append(this, obj).isEquals();

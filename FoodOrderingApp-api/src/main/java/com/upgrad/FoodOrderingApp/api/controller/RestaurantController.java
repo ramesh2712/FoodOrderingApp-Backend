@@ -267,7 +267,7 @@ public class RestaurantController {
                 itemList.itemName(item.getItenName());
                 itemList.price(item.getPrice());
                 ItemList.ItemTypeEnum itemEnum;
-                if(item.getType().equals("1")){
+                if(item.getType().equals("0")){
                    itemEnum = ItemList.ItemTypeEnum.VEG;
                 }
                 else{

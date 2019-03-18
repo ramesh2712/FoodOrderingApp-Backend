@@ -36,6 +36,7 @@ public class CategoryController {
         List<CategoryEntity> categoryEntityList = categoryBusinessService.getAllCategory();
 
         List<CategoryListResponse> categoryListResponsesList = new ArrayList<>();
+
         for(CategoryEntity c: categoryEntityList){
             CategoryListResponse categoryListResponse = new CategoryListResponse();
             categoryListResponse.id(UUID.fromString(c.getUuid()));
@@ -44,6 +45,8 @@ public class CategoryController {
         }
         return new ResponseEntity<List<CategoryListResponse>>(categoryListResponsesList, HttpStatus.OK);
     }
+
+    // Get Category by Id - “/category/{category_id}”
 
     @RequestMapping(method = RequestMethod.GET, path = "/category/{category_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<CategoryDetailsResponse> getCategoryByid (@PathVariable("category_id") final String uuid) throws CategoryNotFoundException {
@@ -60,7 +63,7 @@ public class CategoryController {
             ItemList itemList = new ItemList();
             itemList.id(UUID.fromString(i.getItem().getUuid()));
             ItemList.ItemTypeEnum itemTypeEnum;
-            if(i.getItem().getType().equals("1")){
+            if(i.getItem().getType().equals("0")){
              itemTypeEnum = ItemList.ItemTypeEnum.VEG;
             }else{
                 itemTypeEnum = ItemList.ItemTypeEnum.NON_VEG;

@@ -59,6 +59,9 @@ public class RestaurantEntity {
    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
    List<RestaurantCategoryEntity> restaurantCategory = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    List<RestaurantItemEntity> restaurantItemList = new ArrayList<>();
+
     public Integer getId() {
         return id;
     }
@@ -93,6 +96,14 @@ public class RestaurantEntity {
 
     public BigDecimal getCustomer_rating() {
         return customer_rating;
+    }
+
+    public List<RestaurantItemEntity> getRestaurantItemList() {
+        return restaurantItemList;
+    }
+
+    public void setRestaurantItemList(List<RestaurantItemEntity> restaurantItemList) {
+        this.restaurantItemList = restaurantItemList;
     }
 
     public void setCustomer_rating(BigDecimal customer_rating) {
