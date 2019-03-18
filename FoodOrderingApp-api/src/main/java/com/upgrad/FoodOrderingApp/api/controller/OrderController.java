@@ -27,6 +27,8 @@ public class OrderController {
     @Autowired
     private OrderBusinessService orderBusinessService;
 
+    //Get Coupon by Coupon Name endpoint ....
+
    @RequestMapping(method = RequestMethod.GET, path = "/order/coupon/{coupon_name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<CouponDetailsResponse> getCouponByCouponName (@PathVariable("coupon_name") final String couponName,
                                                                         @RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException, CouponNotFoundException {
