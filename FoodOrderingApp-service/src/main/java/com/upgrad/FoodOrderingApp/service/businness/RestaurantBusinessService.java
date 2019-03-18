@@ -69,14 +69,17 @@ public class RestaurantBusinessService {
 
         if(restaurantuUid == null){
             throw new RestaurantNotFoundException("RNF-002","Restaurant id field should not be empty");
-        } else if((customer_rating == null) || (!(customer_rating.compareTo(BigDecimal.valueOf(0)) > 0 && customer_rating.compareTo(BigDecimal.valueOf(5)) < 0))){
-            throw new InvalidRatingException("IRE-001","(Restaurant should be in the range of 1 to 5");
+        } else if((customer_rating == null) || (!(customer_rating.compareTo(BigDecimal.valueOf(1)) >= 0 && customer_rating.compareTo(BigDecimal.valueOf(5)) <= 0))){
+            throw new InvalidRatingException("IRE-001","Restaurant should be in the range of 1 to 5");
         }else{
             RestaurantEntity restaurantEntity = resturantDao.getResaurantById(restaurantuUid);
             if(restaurantEntity == null){
                 throw new RestaurantNotFoundException("RNF-001","No restaurant by this id");
             }
-            restaurantEntity.setCustomer_rating(customer_rating);
+            BigDecimal rating = restaurantEntity.getCustomer_rating();
+            BigDecimal totalRating = rating.add(customer_rating);
+            BigDecimal avgRating = totalRating.divide(BigDecimal.valueOf(2));
+            restaurantEntity.setCustomer_rating(avgRating);
             restaurantEntity.setNoCustomersRated(restaurantEntity.getNoCustomersRated()+1);
             return resturantDao.updateCuetomerRating(restaurantEntity);
         }
