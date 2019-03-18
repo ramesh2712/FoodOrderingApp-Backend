@@ -29,6 +29,7 @@ public class CategoryController {
     private CategoryBusinessService categoryBusinessService;
 
 
+    // Get All Categories endpoint ....
     @RequestMapping(method = RequestMethod.GET, path = "/category", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CategoryListResponse>> getAllCategories (){
 
