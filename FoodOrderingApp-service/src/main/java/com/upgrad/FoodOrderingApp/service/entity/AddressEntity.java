@@ -53,8 +53,8 @@ public class AddressEntity {
     @OnDelete(action=OnDeleteAction.CASCADE)
     private StateEntity state;
 
-  /*@ManyToMany(mappedBy = "address",fetch = FetchType.EAGER)
-    private List<CustomerEntity> customer = new ArrayList<CustomerEntity>();*/
+    @OneToMany
+    List<RestaurantEntity> restaurant = new ArrayList<>();
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List <CustomerAddressEntity> customerAddress = new ArrayList<>();
