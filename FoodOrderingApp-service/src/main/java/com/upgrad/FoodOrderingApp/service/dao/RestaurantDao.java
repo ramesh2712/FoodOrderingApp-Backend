@@ -47,7 +47,7 @@ public class RestaurantDao {
         return restaurantEntity;
     }
 
-    public List<RestaurantEntity> getALlRest(){
-        return entityManager.createNamedQuery("getAllRest",RestaurantEntity.class).getResultList();
+    public List<RestaurantEntity> getAllRestaurant(){
+        return entityManager.createNamedQuery("getAllRestaurant",RestaurantEntity.class).getResultList();
     }
 }

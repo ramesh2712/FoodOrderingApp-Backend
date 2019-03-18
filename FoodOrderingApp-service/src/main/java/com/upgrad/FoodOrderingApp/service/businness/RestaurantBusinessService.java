@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -78,15 +79,16 @@ public class RestaurantBusinessService {
             }
             BigDecimal rating = restaurantEntity.getCustomer_rating();
             BigDecimal totalRating = rating.add(customer_rating);
-            BigDecimal avgRating = totalRating.divide(BigDecimal.valueOf(2));
+            BigDecimal divideByTwo = new BigDecimal("2");
+            BigDecimal avgRating = totalRating.divide(divideByTwo,1,RoundingMode.CEILING);
             restaurantEntity.setCustomer_rating(avgRating);
             restaurantEntity.setNoCustomersRated(restaurantEntity.getNoCustomersRated()+1);
             return resturantDao.updateCuetomerRating(restaurantEntity);
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<RestaurantEntity> getAllRestaurants (){
-        return resturantDao.getALlRest();
-
+        return resturantDao.getAllRestaurant();
     }
 }
