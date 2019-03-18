@@ -95,7 +95,7 @@ public class RestaurantController {
     //  Get Restaurant by Name Endpoint ....
 
     @RequestMapping(method = RequestMethod.GET, path = "/restaurant/name/{reastaurant_name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<RestaurantListResponse>> getRestaurantByName (@PathVariable("reastaurant_name") final String restaurantName){
+    public ResponseEntity<List<RestaurantListResponse>> getRestaurantByName (@PathVariable("reastaurant_name") final String restaurantName) throws RestaurantNotFoundException{
 
         List<RestaurantEntity> resturants = restaurantBusinessService.getRestaurantByName(restaurantName);
         List<RestaurantListResponse> restaurantListResponsesList = new ArrayList<>();

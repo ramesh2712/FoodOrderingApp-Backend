@@ -21,10 +21,14 @@ public class RestaurantBusinessService {
     private RestaurantDao resturantDao;
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<RestaurantEntity> getRestaurantByName (final String restName) {
-       List<RestaurantEntity> resturants = resturantDao.getRestaurant(restName);
-       return resturants;
-
+    public List<RestaurantEntity> getRestaurantByName (final String restName)throws RestaurantNotFoundException {
+        if(restName.length() == 0){
+            throw new RestaurantNotFoundException("RNF-003","Restaurant name field should not be empty");
+        }
+        else {
+            List<RestaurantEntity> resturants = resturantDao.getRestaurant(restName);
+            return resturants;
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
