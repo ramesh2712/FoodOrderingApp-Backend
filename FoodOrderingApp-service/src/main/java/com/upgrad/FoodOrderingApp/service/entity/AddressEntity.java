@@ -53,8 +53,8 @@ public class AddressEntity {
     @OnDelete(action=OnDeleteAction.CASCADE)
     private StateEntity state;
 
-  /*@ManyToMany(mappedBy = "address",fetch = FetchType.EAGER)
-    private List<CustomerEntity> customer = new ArrayList<CustomerEntity>();*/
+    @OneToMany
+    List<RestaurantEntity> restaurant = new ArrayList<>();
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List <CustomerAddressEntity> customerAddress = new ArrayList<>();
@@ -129,6 +129,14 @@ public class AddressEntity {
 
     public void setCustomerAddress(List<CustomerAddressEntity> customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    public List<RestaurantEntity> getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(List<RestaurantEntity> restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override
