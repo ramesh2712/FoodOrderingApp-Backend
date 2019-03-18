@@ -43,6 +43,13 @@ public class OrderDao {
         }
     }
 
+    public List<OrderEntity> getOrderByAddress(final AddressEntity addressEntity){
+        try {
+            return entityManager.createNamedQuery("getOrderByAddress", OrderEntity.class).setParameter("address",addressEntity).getResultList();
+        } catch (NoResultException nre){
+            return null;
+        }
+    }
     public PaymentEntity getPaymentId (final String uuid){
         try{
             return entityManager.createNamedQuery("paymentById",PaymentEntity.class).setParameter("uuid",uuid)

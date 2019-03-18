@@ -1,10 +1,8 @@
 package com.upgrad.FoodOrderingApp.service.businness;
 
 import com.upgrad.FoodOrderingApp.service.dao.AddressDao;
-import com.upgrad.FoodOrderingApp.service.entity.AddressEntity;
-import com.upgrad.FoodOrderingApp.service.entity.CustomerAddressEntity;
-import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
-import com.upgrad.FoodOrderingApp.service.entity.StateEntity;
+import com.upgrad.FoodOrderingApp.service.dao.OrderDao;
+import com.upgrad.FoodOrderingApp.service.entity.*;
 import com.upgrad.FoodOrderingApp.service.exception.AddressNotFoundException;
 import com.upgrad.FoodOrderingApp.service.exception.AuthorizationFailedException;
 import com.upgrad.FoodOrderingApp.service.exception.SaveAddressException;
@@ -22,6 +20,9 @@ public class AddressBusinessService {
 
     @Autowired
     private AddressDao addressDao;
+
+    @Autowired
+    private OrderDao orderDao;
 
     @Transactional(propagation = Propagation.REQUIRED)
     public AddressEntity customerAddressSave (final AddressEntity addressEntity) throws SaveAddressException, AddressNotFoundException {
@@ -76,8 +77,16 @@ public class AddressBusinessService {
         if(customerEntity1.getId() != customerEntity.getId()){
             throw new AuthorizationFailedException("ATHR-004", "You are not authorized to view/update/delete any one else's address");
         }
-        addressEntity.setActive(0);
-        return addressDao.deleteAddress(addressEntity);
+
+        final List<OrderEntity> orderEntityList = orderDao.getOrderByAddress(addressEntity);
+        if (orderEntityList == null){
+            addressDao.deleteAddress(addressEntity);
+            return addressEntity;
+        }
+        else {
+            addressEntity.setActive(0);
+            return addressDao.updateAddress(addressEntity);
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

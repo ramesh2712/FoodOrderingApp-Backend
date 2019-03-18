@@ -17,7 +17,6 @@ public class ItemDao {
 
     public List<RestaurantItemEntity> getPopularItemByResturantID(final RestaurantEntity restaurantEntity){
 
-        //return null;
         return entityManager.createNamedQuery("getItemByRestaurantId",RestaurantItemEntity.class).setParameter("restaurant", restaurantEntity)
                 .getResultList();
     }

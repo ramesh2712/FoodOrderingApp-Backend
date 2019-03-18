@@ -6,6 +6,7 @@ import com.upgrad.FoodOrderingApp.api.model.ItemListResponse;
 import com.upgrad.FoodOrderingApp.service.businness.ItemBusinessService;
 import com.upgrad.FoodOrderingApp.service.entity.CategoryItemEntity;
 import com.upgrad.FoodOrderingApp.service.entity.ItemEntity;
+import com.upgrad.FoodOrderingApp.service.entity.OrderItemEntity;
 import com.upgrad.FoodOrderingApp.service.entity.RestaurantItemEntity;
 import com.upgrad.FoodOrderingApp.service.exception.RestaurantNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,10 @@ public class ItemController {
         final List<RestaurantItemEntity> restaurantItemEntityList = itemBusinessService.getItemsByRestaurantID(uuid);
 
         List<ItemListResponse> items = new ArrayList<>();
+
         for(RestaurantItemEntity object : restaurantItemEntityList){
+
+           // final List<OrderItemEntity> orderItemEntities = object.getItem().getItemOrder();
 
             ItemListResponse itemListResponse = new ItemListResponse();
 
