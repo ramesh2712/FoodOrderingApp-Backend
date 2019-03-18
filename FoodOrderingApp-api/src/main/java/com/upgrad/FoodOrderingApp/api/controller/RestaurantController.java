@@ -152,6 +152,7 @@ public class RestaurantController {
         return new ResponseEntity<List<RestaurantListResponse>>(restaurantListResponsesList,HttpStatus.OK);
     }
 
+    // Get Restaurants by Category Id endpoint .....
    @RequestMapping(method = RequestMethod.GET, path ="/restaurant/category/{category_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<RestaurantListResponse>> getRestaurantsByCategoryId(@PathVariable("category_id") final String categoryUuid) throws CategoryNotFoundException {
        CategoryEntity category = restaurantBusinessService.getRestauantByCatId(categoryUuid);
@@ -161,7 +162,7 @@ public class RestaurantController {
        Integer aa =resturantByCategory.size();
        Integer bb =aa;
 
-       String categoryName ;
+       String categoryName = "";
        for(RestaurantCategoryEntity r : resturantByCategory){
            RestaurantList restList = new RestaurantList();
            RestaurantEntity restaurant = r.getRestaurant();
@@ -185,11 +186,18 @@ public class RestaurantController {
            StateEntity state = address.getState();
            restaurantDetailsResponseAddressState.id(UUID.fromString(state.getUuid()));
            restaurantDetailsResponseAddressState.stateName(state.getStateName());
-            restaurantDetailsResponseAddress.state(restaurantDetailsResponseAddressState);
+           restaurantDetailsResponseAddress.state(restaurantDetailsResponseAddressState);
 
            List<RestaurantCategoryEntity> getCategoriesByRestaurant =  r.getRestaurant().getRestaurantCategory();
 
-          List<String>  stringList = new ArrayList<>();
+           Collections.sort(getCategoriesByRestaurant, new Comparator<RestaurantCategoryEntity>() {
+               @Override
+               public int compare(RestaurantCategoryEntity u1, RestaurantCategoryEntity  u2) {
+                   return u1.getCategory().getCategory_name().compareTo(u2.getCategory().getCategory_name());
+               }
+           });
+
+           List<String>  stringList = new ArrayList<>();
            for(RestaurantCategoryEntity r1:getCategoriesByRestaurant){
                 stringList.add(r1.getCategory().getCategory_name());
            }

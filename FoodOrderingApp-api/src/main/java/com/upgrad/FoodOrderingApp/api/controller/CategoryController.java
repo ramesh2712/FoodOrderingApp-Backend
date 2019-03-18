@@ -28,6 +28,7 @@ public class CategoryController {
     @Autowired
     private CategoryBusinessService categoryBusinessService;
 
+
     @RequestMapping(method = RequestMethod.GET, path = "/category", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CategoryListResponse>> getAllCategories (){
 
