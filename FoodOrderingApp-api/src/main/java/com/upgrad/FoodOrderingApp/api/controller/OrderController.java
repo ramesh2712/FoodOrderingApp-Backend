@@ -117,8 +117,92 @@ public class OrderController {
         final CustomerEntity customerEntity = customerAuthToken.getCustomers();
         final List<OrderEntity> orderEntityList = orderBusinessService.getOrderListByCustomer(customerEntity);
 
+        List<OrderList> orderLists = new ArrayList<>();
+        for(OrderEntity orderEntity : orderEntityList){
+            final OrderList orderList = new OrderList();
 
-        return null;
+            // Set UUID and Bill ...
+            orderList.id(UUID.fromString(orderEntity.getUuid()));
+            orderList.bill(orderEntity.getBill());
+
+            // Set Coupon ...
+            final OrderListCoupon orderListCoupon = new OrderListCoupon();
+            final CouponEntity couponEntity = orderEntity.getCoupon();
+            orderListCoupon.id(UUID.fromString(couponEntity.getUuid()));
+            orderListCoupon.couponName(couponEntity.getCouponName());
+            orderListCoupon.percent(couponEntity.getPercent());
+            orderList.coupon(orderListCoupon);
+
+            // Set discount ...
+            orderList.discount(orderEntity.getDiscount());
+
+            // Set Date ...
+            orderList.date(orderEntity.getDate().toString());
+
+            // Set Payment ...
+            final OrderListPayment orderListPayment = new OrderListPayment();
+            final PaymentEntity paymentEntity = orderEntity.getPayment();
+            orderListPayment.id(UUID.fromString(paymentEntity.getUuid()));
+            orderListPayment.paymentName(paymentEntity.getPaymentName());
+            orderList.payment(orderListPayment);
+
+            // Set Customer ...
+            final OrderListCustomer orderListCustomer = new OrderListCustomer();
+            orderListCustomer.id(UUID.fromString(customerEntity.getUuid()));
+            orderListCustomer.firstName(customerEntity.getFirstname());
+            orderListCustomer.lastName(customerEntity.getLastname());
+            orderListCustomer.emailAddress(customerEntity.getEmail());
+            orderListCustomer.contactNumber(customerEntity.getContactNumber());
+            orderList.customer(orderListCustomer);
+
+            // Set Address ....
+            final OrderListAddress orderListAddress = new OrderListAddress();
+            final AddressEntity addressEntity = orderEntity.getAddress();
+            orderListAddress.id(UUID.fromString(addressEntity.getUuid()));
+            orderListAddress.flatBuildingName(addressEntity.getFlatBuilNumber());
+            orderListAddress.locality(addressEntity.getLocality());
+            orderListAddress.city(addressEntity.getCity());
+            orderListAddress.pincode(addressEntity.getPinCode());
+
+            // Set State into Address ...
+            final StateEntity stateEntity = addressEntity.getState();
+            final OrderListAddressState orderListAddressState = new OrderListAddressState();
+            orderListAddressState.id(UUID.fromString(stateEntity.getUuid()));
+            orderListAddressState.setStateName(stateEntity.getStateName());
+            orderListAddress.state(orderListAddressState);
+            orderList.address(orderListAddress);
+
+            // Set Item ....
+            final List<ItemQuantityResponse> itemQuantityResponses = new ArrayList<>();
+            final List<OrderItemEntity> orderItemEntityList = orderEntity.getOrderItem();
+            for (OrderItemEntity orderItemEntity : orderItemEntityList) {
+
+                final ItemQuantityResponseItem itemQuantityResponseItem = new ItemQuantityResponseItem();
+                final ItemQuantityResponse itemQuantityResponse = new ItemQuantityResponse();
+
+                // Set itemQuantityResponseItem ...
+                final ItemEntity itemEntity = orderItemEntity.getItem();
+                itemQuantityResponseItem.id(UUID.fromString(itemEntity.getUuid()));
+                itemQuantityResponseItem.itemName(itemEntity.getItenName());
+                itemQuantityResponseItem.itemPrice(itemEntity.getPrice());
+
+                if(itemEntity.getType().equals("0")){
+                    itemQuantityResponseItem.type(ItemQuantityResponseItem.TypeEnum.VEG);
+                }else{
+                    itemQuantityResponseItem.type(ItemQuantityResponseItem.TypeEnum.NON_VEG);
+                }
+                // Set itemQuantityResponses ...
+                itemQuantityResponse.item(itemQuantityResponseItem);
+                itemQuantityResponse.quantity(orderItemEntity.getQuantity());
+                itemQuantityResponse.price(orderItemEntity.getPrice());
+                itemQuantityResponses.add(itemQuantityResponse);
+
+                orderList.itemQuantities(itemQuantityResponses);
+            }
+            orderLists.add(orderList);
+        }
+
+        return new ResponseEntity<List<OrderList>>(orderLists,HttpStatus.OK);
     }
 
 }
